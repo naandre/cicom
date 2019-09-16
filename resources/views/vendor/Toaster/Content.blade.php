@@ -66,9 +66,7 @@
 
                         <div class="uk-container">
                             @foreach(\OsTheNeo\Toaster\BladeEngine::buildButtons($content) as $position => $html)
-                                <div class="{!! $position !!}">
-                                    {!! $html !!}
-                                </div>
+                                {!! $html !!}
                             @endforeach
                         </div>
 

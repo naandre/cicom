@@ -12,6 +12,8 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "laravelcollective/html": "5.8",
+        "laraveles/spanish": "^1.3",
         "ostheneo/toaster": "dev-master",
         "zizaco/entrust": "5.2.x-dev"
     },

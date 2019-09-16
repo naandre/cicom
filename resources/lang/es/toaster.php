@@ -25,7 +25,12 @@ return [
      */
     'dictionary' => [
         'title'           => 'Titulo',
-        'name'            => 'Nombre',
+        'name'            => 'Nombres',
+        'lastname'            => 'Apellidos',
+        'user'            => 'Usuario',
+        'email'            => 'Correo Electrónico',
+        'password'            => 'Contraseña',
+        'password_confirmation'   => 'Repetir contraseña',
         'category'        => 'Categorias',
         'vendor'          => 'Proveedor',
         'brief'           => 'Descripcion corta',

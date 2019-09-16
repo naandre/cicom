@@ -37,27 +37,23 @@
                 </div>
                 <div class="uk-navbar-right">
                     <ul class="uk-navbar-nav">
-                        @guest
-                            <li><a href="{{ route('login') }}">Ingresar</a></li>
-                            <li><a href="{{ route('register') }}">Registrarse</a></li>
-                            @else
-                                <li>
-                                    <a href="#">{{ Auth::user()->name }}</a>
-                                    <div class="uk-navbar-dropdown">
-                                        <ul class="uk-nav uk-navbar-dropdown-nav">
-                                            <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                                   onclick="event.preventDefault();
+                        <li>
+                            <a href="#">{{ Auth::user()->name }}</a>
+                            <div class="uk-navbar-dropdown">
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                                    Logout
-                                                </a>
-                                            </li>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </ul>
-                                    </div>
-                                </li>
-                                @endguest
+                                            Salir
+                                        </a>
+                                    </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        @csrf
+                                    </form>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -72,42 +68,24 @@
                     <button class="uk-offcanvas-close" type="button" uk-close></button>
                     <ul class="uk-nav uk-nav-default">
                         <li>
-                            <a href="{!! route('admin.store.products.index') !!}">
-                                <span class="uk-margin-small-right" uk-icon="icon: file-edit"></span>
-                                Productos
+                            <a href="{!! route('admin.dashboard.index') !!}">
+                                <span class="uk-margin-small-right" uk-icon="icon: home"></span>
+                                Dashboard
                             </a>
                         </li>
                         <li>
-                            <a href="{!! route('admin.store.category.index') !!}">
-                                <span class="uk-margin-small-right" uk-icon="icon: tag"></span>
-                                Categorias
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{!! route('admin.store.purchases.index') !!}">
-                                <span class="uk-margin-small-right" uk-icon="icon: cart"></span>
-                                Ordenes de compra
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{!! route('admin.store.cellars.index') !!}">
-                                <span class="uk-margin-small-right" uk-icon="icon: album"></span>
-                                Inventario
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{!! route('admin.store.admin.index') !!}">
+                            <a href="{!! route('admin.users.index') !!}">
                                 <span class="uk-margin-small-right" uk-icon="icon: users"></span>
-                                Clientes
+                                Ususarios
                             </a>
                         </li>
                         <hr class="uk-divider-icon">
-                        <li>
-                            <a href="{!! route('admin.store.settings') !!}">
-                                <span class="uk-margin-small-right" uk-icon="icon: cog"></span>
-                                Configurar
-                            </a>
-                        </li>
+{{--                        <li>--}}
+{{--                            <a href="{!! route('admin.store.settings') !!}">--}}
+{{--                                <span class="uk-margin-small-right" uk-icon="icon: cog"></span>--}}
+{{--                                Configurar--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
                     </ul>
                 </div>
             </div>

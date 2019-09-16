@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Users\User;
 use OsTheNeo\Toaster\BladeEngine;
 
 class Dictionary
@@ -9,8 +10,7 @@ class Dictionary
     public static function alias($ask) {
 
         $dictionary = (object)[
-            'productTable'  => Product::class,
-            'variantTable'  => Variant::class,
+            'userTable'  => User::class,
         ];
 
         return $dictionary->$ask;
