@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Users;
 
 use App\Helpers\UserHelper;
 use App\Http\Controllers\Backend\Controller;
+use App\Models\Users\Role;
 use App\Models\Users\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -74,7 +75,11 @@ class UserController extends Controller
     }
 
     public function edit($id) {
-        $this->Model = User::find($id);
+        /**@var User $user*/
+        $user = User::find($id);
+        /**@var Role $role*/
+        if($role=$user->roles()->first()) $user->role_id=$role->id;
+        $this->Model=$user;
         $this->options = $this->Forms();
         return parent::edit($id);
     }

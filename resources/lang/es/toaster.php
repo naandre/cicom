@@ -35,7 +35,24 @@ return [
         'vendor'          => 'Proveedor',
         'brief'           => 'Descripcion corta',
         'description'     => 'Descripcion',
-        'variant_details' => 'Detalles'
+        'variant_details' => 'Detalles',
+        'role'            => 'Rol'
     ],
+    /**
+     * Diccionario para el modelo role
+    */
+    'roles'=>[
+        'name'=>'Nombre',
+        'display_name'=>'Nombre para mostrar',
+        'description'=>'Descripción'
+    ],
+    /**
+     * Diccionario para el modelo role
+    */
+    'permissions'=>[
+        'name'=>'Nombre',
+        'display_name'=>'Nombre para mostrar',
+        'description'=>'Descripción'
+    ]
 
 ];

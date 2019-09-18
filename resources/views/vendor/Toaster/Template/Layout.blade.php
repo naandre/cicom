@@ -66,7 +66,7 @@
                 <div class="uk-offcanvas-bar">
                     <h3>ADMIN</h3>
                     <button class="uk-offcanvas-close" type="button" uk-close></button>
-                    <ul class="uk-nav uk-nav-default">
+                    <ul class="uk-nav uk-nav-default uk-nav-parent-icon" uk-nav>
                         <li>
                             <a href="{!! route('admin.dashboard.index') !!}">
                                 <span class="uk-margin-small-right" uk-icon="icon: home"></span>
@@ -80,12 +80,25 @@
                             </a>
                         </li>
                         <hr class="uk-divider-icon">
-{{--                        <li>--}}
-{{--                            <a href="{!! route('admin.store.settings') !!}">--}}
-{{--                                <span class="uk-margin-small-right" uk-icon="icon: cog"></span>--}}
-{{--                                Configurar--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
+                        <li class="uk-parent">
+                            <a href="#"><span class="uk-margin-small-right" uk-icon="icon: cog"></span>
+                                Configuraciones
+                            </a>
+                            <ul class="uk-nav-sub">
+                                <li>
+                                    <a href="{!! route('admin.roles.index') !!}">
+                                        <span class="uk-margin-small-right" uk-icon="icon: settings"></span>
+                                        Roles
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{!! route('admin.permissions.index') !!}">
+                                        <span class="uk-margin-small-right" uk-icon="icon: album"></span>
+                                        Permisos
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

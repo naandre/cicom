@@ -8,6 +8,17 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
+/**
+ * Class User
+ * @package App\Models\Users
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $lastname
+ * @property string $email
+ *
+ * @property Role $roles
+ */
 class User extends Authenticatable
 {
     use Notifiable,SoftDeletes,EntrustUserTrait{
@@ -42,16 +53,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @var array
+     */
     public $fields = [
         'name'=>['options'=>['required'=>'required']],
         'lastname'=>['options'=>['required'=>'required']],
         'user'=>['options'=>['required']],
         'email'=>['options'=>['required']],
+        'role_id'=>[
+            'type'=>'select',
+            'take'=>['id','display_name'],
+            'from'=>'roles',
+            'order'=>['display_name'],
+            'options'=>['placeholder'=>'Seleccione un rol...','required']
+        ],
         'password'=>['kind'=>'password','options'=>['required'=>'required']],
         'password_confirmation'=>['type'=>'password','options'=>['required'=>'required']]
     ];
 
 
+    /**
+     * @var array
+     */
     public $schemas = [
         'userTable' => [
             'id',
@@ -62,6 +86,9 @@ class User extends Authenticatable
         ]
     ];
 
+    /**
+     * @var array
+     */
     public $links = [
         'userTable' => [
             ['Ver', 'admin.users.show', 'id'],
@@ -70,6 +97,9 @@ class User extends Authenticatable
         ],
     ];
 
+    /**
+     * @var array
+     */
     public $routes = [
         'edit'   => 'admin.users.update',
         'create' => 'admin.users.store'
