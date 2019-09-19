@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Users\Permission;
+use App\Models\Users\Role;
 use App\Models\Users\User;
 use OsTheNeo\Toaster\BladeEngine;
 
@@ -11,6 +13,8 @@ class Dictionary
 
         $dictionary = (object)[
             'userTable'  => User::class,
+            'permissionTable'  => Permission::class,
+            'roleTable'  => Role::class,
         ];
 
         return $dictionary->$ask;
@@ -26,8 +30,6 @@ class Dictionary
 
         $replacement = (object)[
             'purchaseTable' =>$purchaseTables,
-            'purchaseTableBogota' => $purchaseTables,
-            'purchaseTableBogotaNorte' => $purchaseTables
         ];
         if (isset($replacement->$ask))
             return $replacement->$ask;

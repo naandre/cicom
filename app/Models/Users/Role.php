@@ -27,7 +27,7 @@ class Role extends EntrustRole
     public $fields = [
         'name'=>['options'=>['required'=>'required']],
         'display_name'=>['options'=>['required'=>'required']],
-        'description',
+        'description'=>['kind'=>'textarea'],
         'permissions'=>[
             'type'    => 'checkbox',
             'group'   => [

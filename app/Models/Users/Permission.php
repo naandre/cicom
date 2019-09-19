@@ -27,7 +27,7 @@ class Permission extends EntrustPermission
     public $fields = [
         'name'=>['options'=>['required'=>'required']],
         'display_name'=>['options'=>['required'=>'required']],
-        'description'
+        'description'=>['kind'=>'textarea']
     ];
 
 
@@ -35,7 +35,7 @@ class Permission extends EntrustPermission
      * @var array
      */
     public $schemas = [
-        'roleTable' => [
+        'permissionTable' => [
             'id',
             'name',
             'display_name',
@@ -47,7 +47,7 @@ class Permission extends EntrustPermission
      * @var array
      */
     public $links = [
-        'roleTable' => [
+        'permissionTable' => [
             ['Editar', 'admin.permissions.edit', 'id'],
             ['Eliminar', 'admin.permissions.destroy', 'id','destroy']
         ],
