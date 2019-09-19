@@ -112,4 +112,29 @@ class User extends Authenticatable
     public function addRole($roleId){
         $this->roles()->attach($roleId);
     }
+    /**
+     * remueve el rol indicado al usuario
+     * @param $roleId - identificador del rol a remover
+     */
+    public function removeRole($roleId){
+        $this->roles()->detach($roleId);
+    }
+
+    /**
+     * obtiene y retorna el id del rol, asignado al usuario
+     * @return int|null
+     */
+    public function getRoleId(){
+        /**@var Role $role*/
+        if($role=$this->roles()->first())
+            return $role->id;
+        return null;
+    }
+
+    public function changeRole(int $newRoleId){
+        if(($oldRoleId=$this->getRoleId()) and $oldRoleId!=$newRoleId){
+            $this->removeRole($oldRoleId);
+            $this->addRole($newRoleId);
+        }elseif (!$oldRoleId) $this->addRole($newRoleId);
+    }
 }

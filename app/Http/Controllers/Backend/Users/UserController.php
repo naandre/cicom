@@ -47,10 +47,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validateUnserialize($request,UserHelper::generateValidations());
-        $user=new User(UserHelper::dataCollection($this->unserializeForms($request->forms)[1]));
+        $user=new User(UserHelper::dataCollection($input=$this->unserializeForms($request->forms)[1]));
         $user->save();
-        /**agrega permisos de administrador*/
-        $user->addRole(2);
+        /**agrega el rol espesificado*/
+        $user->addRole($input['role_id']);
         Session::flash('success', "El usuario se creo correctamente");
         return redirect()->route('admin.users.index');
     }
@@ -88,13 +88,21 @@ class UserController extends Controller
     {
         $message="Lo sentimos, no se encontró el usuario especificado";
         $typeMessage='danger';
+        /**@var User $user*/
         if(!empty($user=User::find($id))){
-            $filters=['unset'=>['email']];
             $input=$this->unserializeForms($request->forms)[1];
+            /**Si el correo aun no esta en uso, se continua con la actuaizacion*/
+            if(($userAux=User::where('email',$input['email'])->first()) and $userAux->id!=$id){
+                Session::flash($typeMessage, "Lo sentimos, el correo ya se encuentra en uso");
+                return redirect()->route('admin.users.edit',$user->id);
+            }
+            $filters=['unset'=>['email','user']];
             if(empty($input['password'])) $filters['unset'][]='password';
             $this->validateUnserialize($request,UserHelper::generateValidations($filters));
-            $user->fill(UserHelper::dataCollection($this->unserializeForms($request->forms)[1]));
+            $user->fill(UserHelper::dataCollection($input));
             $user->save();
+            /**Si es el caso, se hace el camo de rol*/
+            $user->changeRole($input['role_id']);
             $message="Se actualizo el usuario de forma exitosa";
             $typeMessage='success';
         }
