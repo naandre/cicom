@@ -73,32 +73,36 @@
                                 Dashboard
                             </a>
                         </li>
-                        <li>
-                            <a href="{!! route('admin.users.index') !!}">
-                                <span class="uk-margin-small-right" uk-icon="icon: users"></span>
-                                Ususarios
-                            </a>
-                        </li>
-                        <hr class="uk-divider-icon">
-                        <li class="uk-parent">
-                            <a href="#"><span class="uk-margin-small-right" uk-icon="icon: cog"></span>
-                                Configuraciones
-                            </a>
-                            <ul class="uk-nav-sub">
-                                <li>
-                                    <a href="{!! route('admin.roles.index') !!}">
-                                        <span class="uk-margin-small-right" uk-icon="icon: settings"></span>
-                                        Roles
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{!! route('admin.permissions.index') !!}">
-                                        <span class="uk-margin-small-right" uk-icon="icon: album"></span>
-                                        Permisos
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @permission(['consultar_usu','crear_usu'])
+                            <li>
+                                <a href="{!! route('admin.users.index') !!}">
+                                    <span class="uk-margin-small-right" uk-icon="icon: users"></span>
+                                    Ususarios
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('roles')
+                            <hr class="uk-divider-icon">
+                            <li class="uk-parent">
+                                <a href="#"><span class="uk-margin-small-right" uk-icon="icon: cog"></span>
+                                    Configuraciones
+                                </a>
+                                <ul class="uk-nav-sub">
+                                    <li>
+                                        <a href="{!! route('admin.roles.index') !!}">
+                                            <span class="uk-margin-small-right" uk-icon="icon: settings"></span>
+                                            Roles
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{!! route('admin.permissions.index') !!}">
+                                            <span class="uk-margin-small-right" uk-icon="icon: album"></span>
+                                            Permisos
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endpermission
                     </ul>
                 </div>
             </div>

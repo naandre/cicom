@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\Controller;
 use App\Models\Users\Role;
 use App\Models\Users\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use OsTheNeo\Toaster\BladeEngine;
 
@@ -22,17 +23,22 @@ class UserController extends Controller
      */
     public function index()
     {
+        $buttons=[];
+        if(Auth::user()->ability(Auth::user()->getRole(),'crear_usu'))
+            $buttons=[
+                'top-right' => [
+                    'kind'  => 'link',
+                    'route' => 'admin.users.create',
+                    'text'  => 'Nuevo Usuario']
+            ];
+
         $indexTable = (object)['visualization' => 'table',
             'model'         => new User(),
             'data'          => 'ajax',
             'schema'        => 'userTable',
             'filters'       =>'filter[isNull]=deleted_at',
-            'buttons'       => [
-                'top-right' => [
-                    'kind'  => 'link',
-                    'route' => 'admin.users.create',
-                    'text'  => 'Nuevo Usuario']
-            ]];
+            'buttons'       =>$buttons
+        ];
         $this->options = ['contents' => $indexTable];
 
         return parent::index();

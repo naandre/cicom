@@ -126,11 +126,24 @@ class User extends Authenticatable
      */
     public function getRoleId(){
         /**@var Role $role*/
-        if($role=$this->roles()->first())
+        if($role=$this->getRole())
             return $role->id;
+
         return null;
     }
 
+    /**
+     * retorna el rol asignado al usuario
+     * @return mixed
+     */
+    public function getRole(){
+        return $this->roles()->first();
+    }
+
+    /**
+     * cambia el rol del usuario
+     * @param int $newRoleId
+     */
     public function changeRole(int $newRoleId){
         if(($oldRoleId=$this->getRoleId()) and $oldRoleId!=$newRoleId){
             $this->removeRole($oldRoleId);
