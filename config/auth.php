@@ -77,6 +77,9 @@ return [
         //     'table' => 'users',
         // ],
     ],
+    /**Para uso de entrus*/
+    'model' => App\Models\Users\User::class,
+    'table' => 'users',
 
     /*
     |--------------------------------------------------------------------------

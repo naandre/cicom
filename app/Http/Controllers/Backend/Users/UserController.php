@@ -141,7 +141,7 @@ class UserController extends Controller
     }
 
     public function destroy($id,Request $request){
-        $user=User::find($request->user);
+        $user=User::find($id);
         if(empty($user)){
             Session::flash('danger','No se encontró el usuario especificado');
             return redirect()->route('admin.users.index');

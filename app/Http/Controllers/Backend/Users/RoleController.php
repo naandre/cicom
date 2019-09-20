@@ -62,12 +62,18 @@ class RoleController extends Controller
         $this->validateUnserialize($request,$this->rules);
         $role=new Role($input=$this->unserializeForms($request->forms)[1]);
         $role->save();
+        /**Se agregan los permisos*/
+        $role->synPermissions(isset($input['permissions'])?$input['permissions']:[]);
         Session::flash('success', "El rol se creo correctamente");
         return redirect()->route('admin.roles.index');
     }
 
     public function edit($id) {
-        $this->Model=Role::find($id);
+        /**@var Role $role*/
+        $role=Role::find($id);
+        /**Se cargan los permisos*/
+        $role->permissions=implode(',',$role->getPermissionIds());
+        $this->Model=$role;
         $this->options = $this->Forms();
         return parent::edit($id);
     }
@@ -89,10 +95,24 @@ class RoleController extends Controller
             $this->validateUnserialize($request,$this->rules);
             $role->fill($input);
             $role->save();
+            /**Se actualizan los permisos*/
+            $role->synPermissions(isset($input['permissions'])?$input['permissions']:[]);
             $message="Se actualizo el rol de forma exitosa";
             $typeMessage='success';
         }
         Session::flash($typeMessage, $message);
+        return redirect()->route('admin.roles.index');
+    }
+
+    public function destroy($id,Request $request){
+        /**@var Role $role*/
+        if(empty($role=Role::find($id))){
+            Session::flash('danger','No se encontró el rol especificado');
+            return redirect()->route('admin.roles.index');
+        }
+        Session::flash('success','El rol '.$role->name.' se elimino con éxito');
+        if($role->perms()->count()>0) $role->synPermissions([]);
+        $role->delete();
         return redirect()->route('admin.roles.index');
     }
 }

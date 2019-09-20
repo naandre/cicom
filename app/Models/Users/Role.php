@@ -69,4 +69,24 @@ class Role extends EntrustRole
         'edit'   => 'admin.roles.update',
         'create' => 'admin.roles.store'
     ];
+
+    /**
+     * Sincroniza los permisos del rol
+     * @param array $permissionIds
+     */
+    public function synPermissions(array $permissionIds){
+        $this->perms()->sync($permissionIds);
+    }
+
+    /**
+     * agrega permisos al rol
+     * @param array $permissions
+     */
+    public function addPermisions(array $permissions){
+        $this->perms()->attach($permissions);
+    }
+
+    public function getPermissionIds():array {
+        return $this->perms()->get()->modelKeys();
+    }
 }
