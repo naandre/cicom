@@ -53,6 +53,13 @@ return [
         'name'=>'Nombre',
         'display_name'=>'Nombre para mostrar',
         'description'=>'Descripción'
+    ],
+    /**
+     * Diccionario para el modelo category
+    */
+    'categories'=>[
+        'name'=>'Nombre',
+        'state'=>'Estado'
     ]
 
 ];

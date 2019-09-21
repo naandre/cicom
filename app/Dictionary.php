@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Articles\Category;
 use App\Models\Users\Permission;
 use App\Models\Users\Role;
 use App\Models\Users\User;
@@ -15,21 +16,21 @@ class Dictionary
             'userTable'  => User::class,
             'permissionTable'  => Permission::class,
             'roleTable'  => Role::class,
+            'categoryTable'  => Category::class,
         ];
 
         return $dictionary->$ask;
     }
 
     public static function replacemente($ask) {
-        /**estructura de datos para las tablas de purchase*/
-        $purchaseTables=[
-            'delivery_state' => ['kind' => 'group'],
-            'payment_state'  => ['kind' => 'group'],
+        /**estructura de datos para las tablas de categories*/
+        $categoryTables=[
             'state'          => ['kind' => 'group'],
-            'note'          => ['kind' => 'json','value' => 'datetime','splitData'=>'data:']];
+            //'note'          => ['kind' => 'json','value' => 'datetime','splitData'=>'data:']
+        ];
 
         $replacement = (object)[
-            'purchaseTable' =>$purchaseTables,
+            'categoryTable' =>$categoryTables,
         ];
         if (isset($replacement->$ask))
             return $replacement->$ask;
@@ -38,14 +39,7 @@ class Dictionary
 
     public static function groupDefinitions($group){//'0'=>'Pendiente de pago'
         $groups = (object)([
-            'size'           => ['0s' => 'Pequeño', '1s' => 'Mediano', '2s' => 'Grande'],
-            'delivery_state' => ['Pendiente de envío', 'Enviado', 'Recibido', 'Devuelto cliente', 'Devuelto despachadora'],
-            'payment_state'  => ['0'=>'......','1'=>'Aprobado','2'=>'Rechazada','3'=>'En verificación','4'=>'Fallida',
-                '5'=>'N/D','6'=>'Reversada','7'=>'Retenida','8'=>'Iniciada','9'=>'Exprirada',
-                '10'=>'Abandonada','11'=>'Cancelada','12'=>'Antifraude'],
-            'state'          => ['Pendiente', 'Aprobada', 'Cancelado usuario', 'Cancelado administrador'],
-            'cities'=>config('store.cities'),
-            'states'=>['1'=>'Activado','0'=>'Desactivado'],
+            'state'=>['1'=>'Activo','0'=>'Desactivado'],
         ]);
         if (isset($groups->$group)) {
             return $groups->$group;

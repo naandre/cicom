@@ -81,6 +81,14 @@
                                 </a>
                             </li>
                         @endpermission
+                        @permission('config')
+                            <li>
+                                <a href="{!! route('admin.category.index') !!}">
+                                    <span class="uk-margin-small-right" uk-icon="icon: bookmark"></span>
+                                    Lista de categorías
+                                </a>
+                            </li>
+                        @endpermission
                         @permission('roles')
                             <hr class="uk-divider-icon">
                             <li class="uk-parent">

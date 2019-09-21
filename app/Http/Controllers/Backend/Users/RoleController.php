@@ -64,7 +64,7 @@ class RoleController extends Controller
         $role->save();
         /**Se agregan los permisos*/
         $role->synPermissions(isset($input['permissions'])?$input['permissions']:[]);
-        Session::flash('success', "El rol se creo correctamente");
+        Session::flash('success', "Datos guardados");
         return redirect()->route('admin.roles.index');
     }
 
@@ -97,7 +97,7 @@ class RoleController extends Controller
             $role->save();
             /**Se actualizan los permisos*/
             $role->synPermissions(isset($input['permissions'])?$input['permissions']:[]);
-            $message="Se actualizo el rol de forma exitosa";
+            $message="Datos guardados de forma exitosa";
             $typeMessage='success';
         }
         Session::flash($typeMessage, $message);
