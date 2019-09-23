@@ -40,7 +40,6 @@ class UserHelper
         $validation= [
             'name' => ['required', 'string', 'max:250'],
             'lastname' => ['required', 'string', 'max:250'],
-            'user' => ['required', 'string', 'max:200', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];

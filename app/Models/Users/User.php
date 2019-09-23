@@ -59,7 +59,7 @@ class User extends Authenticatable
     public $fields = [
         'name'=>['options'=>['required'=>'required']],
         'lastname'=>['options'=>['required'=>'required']],
-        'user'=>['options'=>['required']],
+        //'user'=>['options'=>['required']],
         'email'=>['options'=>['required']],
         'role_id'=>[
             'type'=>'select',

@@ -49,7 +49,7 @@ class Permission extends EntrustPermission
     public $links = [
         'permissionTable' => [
             ['Editar', 'admin.permissions.edit', 'id'],
-            ['Eliminar', 'admin.permissions.destroy', 'id','destroy']
+//            ['Eliminar', 'admin.permissions.destroy', 'id','destroy']
         ],
     ];
 
