@@ -89,6 +89,14 @@
                                 </a>
                             </li>
                         @endpermission
+                        @permission('config')
+                            <li>
+                                <a href="{!! route('admin.line.index') !!}">
+                                    <span class="uk-margin-small-right" uk-icon="icon: album"></span>
+                                    Lineas de investigación
+                                </a>
+                            </li>
+                        @endpermission
                         @permission('roles')
                             <hr class="uk-divider-icon">
                             <li class="uk-parent">

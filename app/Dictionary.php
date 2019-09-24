@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Articles\Category;
+use App\Models\Articles\LinesInvestigation;
 use App\Models\Users\Permission;
 use App\Models\Users\Role;
 use App\Models\Users\User;
@@ -17,6 +18,7 @@ class Dictionary
             'permissionTable'  => Permission::class,
             'roleTable'  => Role::class,
             'categoryTable'  => Category::class,
+            'linesTable'  => LinesInvestigation::class,
         ];
 
         return $dictionary->$ask;
@@ -28,9 +30,14 @@ class Dictionary
             'state'          => ['kind' => 'group'],
             //'note'          => ['kind' => 'json','value' => 'datetime','splitData'=>'data:']
         ];
+        $linesTable=[
+            'state'          => ['kind' => 'group'],
+            //'note'          => ['kind' => 'json','value' => 'datetime','splitData'=>'data:']
+        ];
 
         $replacement = (object)[
             'categoryTable' =>$categoryTables,
+            'linesTable' =>$linesTable,
         ];
         if (isset($replacement->$ask))
             return $replacement->$ask;

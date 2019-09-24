@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Articles;
 
+use App\Http\Controllers\Backend\Controller;
 use App\Models\Articles\LinesInvestigation;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class LinesInvestigationController extends Controller
 {

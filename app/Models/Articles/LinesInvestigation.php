@@ -35,8 +35,8 @@ class LinesInvestigation extends Model
      */
     public $links = [
         'linesTable' => [
-            ['Editar Categoría', 'admin.line.edit', 'id'],
-            ['Eliminar Categoría', 'admin.line.destroy', 'id','destroy']
+            ['Editar', 'admin.line.edit', 'id'],
+            ['Eliminar', 'admin.line.destroy', 'id','destroy']
         ],
     ];
     /**
