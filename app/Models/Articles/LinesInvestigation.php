@@ -4,17 +4,9 @@ namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Category
- * @package App\Models\Articles
- *
- * @package int $id
- * @package string $name
- * @package inte $state
- */
-class Category extends Model
+class LinesInvestigation extends Model
 {
-    protected $table="categories";
+    protected $table="lines_investigation";
     protected $fillable=["name","state"];
     /**
      * @var array
@@ -31,7 +23,7 @@ class Category extends Model
      * @var array
      */
     public $schemas = [
-        'categoryTable' => [
+        'linesTable' => [
             'id',
             'name',
             'state',
@@ -42,16 +34,16 @@ class Category extends Model
      * @var array
      */
     public $links = [
-        'categoryTable' => [
-            ['Editar Categoría', 'admin.category.edit', 'id'],
-            ['Eliminar Categoría', 'admin.category.destroy', 'id','destroy']
+        'linesTable' => [
+            ['Editar Categoría', 'admin.line.edit', 'id'],
+            ['Eliminar Categoría', 'admin.line.destroy', 'id','destroy']
         ],
     ];
     /**
      * @var array
      */
     public $routes = [
-        'edit'   => 'admin.category.update',
-        'create' => 'admin.category.store'
+        'edit'   => 'admin.line.update',
+        'create' => 'admin.line.store'
     ];
 }
