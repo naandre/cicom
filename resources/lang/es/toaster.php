@@ -60,6 +60,20 @@ return [
     'categories'=>[
         'name'=>'Nombre',
         'state'=>'Estado'
+    ],
+    /**
+     * Diccionario para el modelo category
+    */
+    'extensions'=>[
+        'name'=>'Nombre',
+        'state'=>'Estado'
+    ],
+    /**
+     * Diccionario para el modelo category
+    */
+    'images'=>[
+        'name'=>'Nombre',
+        'image'=>'Imagen'
     ]
 
 ];

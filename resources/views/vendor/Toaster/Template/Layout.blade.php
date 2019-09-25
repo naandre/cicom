@@ -97,6 +97,22 @@
                                 </a>
                             </li>
                         @endpermission
+                        @permission('config')
+                            <li>
+                                <a href="{!! route('admin.extension.index') !!}">
+                                    <span class="uk-margin-small-right" uk-icon="icon: code"></span>
+                                    Extensiones
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('config image')
+                            <li>
+                                <a href="{!! route('admin.image.index') !!}">
+                                    <span class="uk-margin-small-right" uk-icon="icon: image"></span>
+                                    Gestionar Imágenes
+                                </a>
+                            </li>
+                        @endpermission
                         @permission('roles')
                             <hr class="uk-divider-icon">
                             <li class="uk-parent">

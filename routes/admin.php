@@ -14,3 +14,7 @@ Route::resource('permissions','Backend\Users\PermissionController')->middleware(
 Route::resource('category','Backend\Articles\CategoryController')->middleware('permission:config');
 /** Lineas de investigacion **/
 Route::resource('line','Backend\Articles\LinesInvestigationController')->middleware('permission:config');
+/** Estensiones **/
+Route::resource('extension','Backend\Articles\ExtensionController')->middleware('permission:config');
+/** Imagenes **/
+Route::resource('image','Backend\Articles\ImageController')->middleware('permission:config image');
