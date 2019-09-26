@@ -4,9 +4,23 @@ namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Image
+ * @package App\Models\Articles
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $image
+ */
 class Image extends Model
 {
+    /**
+     * @var string
+     */
     protected $table="images";
+    /**
+     * @var array
+     */
     protected $fillable=["name","image"];
     /**
      * @var array
@@ -15,9 +29,14 @@ class Image extends Model
         'name'=>['options'=>['required'=>'required']],
         'image'=>[
             'type'=>'file',
-            'options'=>['required'=>'required']
+            'options'=>['accept'=>'image/*','required'=>'required']
         ]
     ];
+
+    /**
+     * @var bool
+     */
+    public $files=true;
     /**
      * @var array
      */

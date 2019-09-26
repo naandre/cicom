@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Articles;
 use App\Http\Controllers\Backend\Controller;
 use App\Models\Articles\Image;
 use Illuminate\Http\Request;
+use OsTheNeo\Toaster\FilesHelper;
 
 class ImageController extends Controller
 {
@@ -45,7 +46,7 @@ class ImageController extends Controller
         ];
 
         $forms = ['contents' => $imageForm,
-            'models'   => $models];
+            'models'   => $models,'submitButton'=>true];
 
         return $forms;
     }
@@ -58,8 +59,10 @@ class ImageController extends Controller
 
     public function store(Request $request)
     {
-        $this->validateUnserialize($request,$this->rules);
-        $image=new Image($input=$this->unserializeForms($request->forms)[1]);
+        $this->validate($request,$this->rules);
+        $input=$request->all();
+        $input['image']=FilesHelper::store($request,'image',$input['image'],'images');
+        $image=new Image($input);
         $image->save();
         Session::flash('success', "Se subió la imagen");
         return redirect()->route('admin.image.index');
@@ -74,6 +77,7 @@ class ImageController extends Controller
         }
         Session::flash('success','Imagen eliminada');
         $image->delete();
+        FilesHelper::destroy('images/'.$image->image);
         return redirect()->route('admin.image.index');
     }
 }
