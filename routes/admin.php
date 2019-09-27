@@ -18,3 +18,5 @@ Route::resource('line','Backend\Articles\LinesInvestigationController')->middlew
 Route::resource('extension','Backend\Articles\ExtensionController')->middleware('permission:config');
 /** Imagenes **/
 Route::resource('image','Backend\Articles\ImageController')->middleware('permission:config image');
+/** Ultimo congreso */
+Route::resource('lastcongress','Backend\Articles\LastCongressController')->middleware('permission:config image');

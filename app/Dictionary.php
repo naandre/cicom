@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Articles\Category;
 use App\Models\Articles\Extension;
 use App\Models\Articles\Image;
+use App\Models\Articles\LastCongress;
 use App\Models\Articles\LinesInvestigation;
 use App\Models\Users\Permission;
 use App\Models\Users\Role;
@@ -23,6 +24,7 @@ class Dictionary
             'linesTable'  => LinesInvestigation::class,
             'extensionTable'  => Extension::class,
             'imageTable'  => Image::class,
+            'lastcongressTable'  => LastCongress::class,
         ];
 
         return $dictionary->$ask;

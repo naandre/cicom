@@ -1297,12 +1297,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OsTheNeo/toaster.git",
-                "reference": "4c1621fc729b59a43ab68e4c60a8dcc7bd40b79a"
+                "reference": "6b60db25f218e23af5638911c6e8f27974d75a92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OsTheNeo/toaster/zipball/4c1621fc729b59a43ab68e4c60a8dcc7bd40b79a",
-                "reference": "4c1621fc729b59a43ab68e4c60a8dcc7bd40b79a",
+                "url": "https://api.github.com/repos/OsTheNeo/toaster/zipball/6b60db25f218e23af5638911c6e8f27974d75a92",
+                "reference": "6b60db25f218e23af5638911c6e8f27974d75a92",
                 "shasum": ""
             },
             "require": {
@@ -1328,7 +1328,7 @@
                 "MIT"
             ],
             "description": "Toaster online",
-            "time": "2019-09-23T04:24:05+00:00"
+            "time": "2019-09-26T04:52:11+00:00"
         },
         {
             "name": "paragonie/random_compat",

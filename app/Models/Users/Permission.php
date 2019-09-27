@@ -25,7 +25,7 @@ class Permission extends EntrustPermission
      * @var array
      */
     public $fields = [
-        'name'=>['options'=>['required'=>'required']],
+//        'name'=>['options'=>['required'=>'required']],
         'display_name'=>['options'=>['required'=>'required']],
         'description'=>['kind'=>'textarea']
     ];

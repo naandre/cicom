@@ -4,15 +4,7 @@ namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Image
- * @package App\Models\Articles
- *
- * @property int $id
- * @property string $name
- * @property string $image
- */
-class Image extends Model
+class LastCongress extends Model
 {
     /**
      * @var string
@@ -21,15 +13,16 @@ class Image extends Model
     /**
      * @var array
      */
-    protected $fillable=["name","image"];
+    protected $fillable=["name","url","file"];
     /**
      * @var array
      */
     public $fields = [
         'name'=>['options'=>['required'=>'required']],
-        'image'=>[
+        'url',
+        'file'=>[
             'type'=>'file',
-            'options'=>['accept'=>'image/*','required'=>'required']
+            'options'=>[]
         ]
     ];
 
@@ -41,10 +34,10 @@ class Image extends Model
      * @var array
      */
     public $schemas = [
-        'imageTable' => [
+        'lastcongressTable' => [
             'id',
             'name',
-            'image',
+            'created_at',
             '_links'
         ]
     ];
@@ -52,16 +45,16 @@ class Image extends Model
      * @var array
      */
     public $links = [
-        'imageTable' => [
-//            ['Editar', 'admin.image.edit', 'id'],
-            ['Eliminar', 'admin.image.destroy', 'id','destroy']
+        'lastcongressTable' => [
+            ['Editar', 'admin.lastcongress.edit', 'id'],
+            ['Eliminar', 'admin.lastcongress.destroy', 'id','destroy']
         ],
     ];
     /**
      * @var array
      */
     public $routes = [
-        'edit'   => 'admin.image.update',
-        'create' => 'admin.image.store'
+        'edit'   => 'admin.lastcongress.update',
+        'create' => 'admin.lastcongress.store'
     ];
 }

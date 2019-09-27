@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Backend\Articles;
 
-use App\Http\Controllers\Backend\Controller;
-use App\Models\Articles\Image;
+use App\Models\Articles\LastCongress;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 use OsTheNeo\Toaster\FilesHelper;
 
-class ImageController extends Controller
+class LastCongressController extends Controller
 {
     protected $rules=[
         'name' => ['required', 'string', 'max:50','unique:categories'],
@@ -16,15 +17,15 @@ class ImageController extends Controller
     public function index()
     {
         $indexTable = (object)['visualization' => 'table',
-            'model'         => new Image(),
+            'model'         => new LastCongress(),
             'data'          => 'ajax',
             'schema'        => 'imageTable',
             'filters'       =>'filter[isNull]=deleted_at',
             'buttons'       => [
                 'top-right' => [
                     'kind'  => 'link',
-                    'route' => 'admin.image.create',
-                    'text'  => 'Subir Imagen']
+                    'route' => 'admin.lastcongress.create',
+                    'text'  => 'Agregar Información']
             ]];
         $this->options = ['contents' => $indexTable];
 
@@ -32,20 +33,20 @@ class ImageController extends Controller
     }
 
     function Forms() {
-        $models = (object)['Image' => Image::class];
+        $models = (object)['LastCongress' => LastCongress::class];
 
-        $imageForm = (object)[
+        $lastcongressForm = (object)[
             'visualization' => 'form',
-            'model' => 'Image',
+            'model' => 'LastCongress',
             'buttons'       => [
                 'top-right' => [
                     'kind'  => 'link',
-                    'route' => 'admin.image.index',
+                    'route' => 'admin.lastcongress.index',
                     'text'  => 'Cancelar']
             ]
         ];
 
-        $forms = ['contents' => $imageForm,
+        $forms = ['contents' => $lastcongressForm,
             'models'   => $models,'submitButton'=>true];
 
         return $forms;
@@ -61,23 +62,23 @@ class ImageController extends Controller
     {
         $this->validate($request,$this->rules);
         $input=$request->all();
-        $input['image']=FilesHelper::store($request,'image',$input['name'],'images');
-        $image=new Image($input);
-        $image->save();
-        Session::flash('success', "Se subió la imagen");
-        return redirect()->route('admin.image.index');
+        $input['file']=FilesHelper::store($request,'file',$input['name'],'lastcongress');
+        $lastcongress=new LastCongress($input);
+        $lastcongress->save();
+        Session::flash('success', "Se agrego la Información");
+        return redirect()->route('admin.lastcongress.index');
     }
 
 
     public function destroy($id,Request $request){
-        /**@var Image $image*/
-        if(empty($image=Image::find($id))){
-            Session::flash('danger','No se encontró la Imagen especificada');
-            return redirect()->route('admin.image.index');
+        /**@var LastCongress $lastcongress*/
+        if(empty($lastcongress=LastCongress::find($id))){
+            Session::flash('danger','No se encontró el registro');
+            return redirect()->route('admin.lastcongress.index');
         }
-        Session::flash('success','Imagen eliminada');
-        $image->delete();
-        FilesHelper::destroy('images/'.$image->image);
-        return redirect()->route('admin.image.index');
+        Session::flash('success','Registro eliminada');
+        $lastcongress->delete();
+        FilesHelper::destroy('lastcongress/'.$lastcongress->lastcongress);
+        return redirect()->route('admin.lastcongress.index');
     }
 }
