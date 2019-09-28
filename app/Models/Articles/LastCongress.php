@@ -4,6 +4,14 @@ namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class LastCongress
+ * @package App\Models\Articles
+ *
+ * @property int $id
+ * @property string $url
+ * @property string $file
+ */
 class LastCongress extends Model
 {
     /**
@@ -19,7 +27,7 @@ class LastCongress extends Model
      */
     public $fields = [
         'name'=>['options'=>['required'=>'required']],
-        'url',
+        'url'=>['type'=>'text','options'=>[]],
         'file'=>[
             'type'=>'file',
             'options'=>[]

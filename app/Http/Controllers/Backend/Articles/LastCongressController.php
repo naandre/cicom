@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers\Backend\Articles;
 
+use App\Http\Controllers\Backend\Controller;
 use App\Models\Articles\LastCongress;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use OsTheNeo\Toaster\FilesHelper;
 
 class LastCongressController extends Controller
 {
     protected $rules=[
-        'name' => ['required', 'string', 'max:50','unique:categories'],
-        'state' => ['required', 'numeric'],
+        'name' => ['required', 'string', 'max:50']
     ];
     public function index()
     {
         $indexTable = (object)['visualization' => 'table',
             'model'         => new LastCongress(),
             'data'          => 'ajax',
-            'schema'        => 'imageTable',
+            'schema'        => 'lastcongressTable',
             'filters'       =>'filter[isNull]=deleted_at',
             'buttons'       => [
                 'top-right' => [
@@ -69,6 +68,30 @@ class LastCongressController extends Controller
         return redirect()->route('admin.lastcongress.index');
     }
 
+    public function edit($id) {
+        $this->Model=LastCongress::find($id);
+        $this->options = $this->Forms();
+        return parent::edit($id);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request,$this->rules);
+        $message="Lo sentimos, no se encontró la Información especificada";
+        $typeMessage='danger';
+        /**@var LastCongress $lastcongress*/
+        if(!empty($lastcongress=LastCongress::find($id))){
+            $input=$request->all();
+            if($request->file) $input['file']=FilesHelper::update($request,'file',$input['name'],'lastcongress/',$lastcongress->file);
+            $lastcongress->fill($input);
+            $lastcongress->save();
+
+            $message="Se editaron los datos";
+            $typeMessage='success';
+        }
+        Session::flash($typeMessage, $message);
+        return redirect()->route('admin.lastcongress.index');
+    }
 
     public function destroy($id,Request $request){
         /**@var LastCongress $lastcongress*/

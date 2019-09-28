@@ -113,6 +113,14 @@
                                 </a>
                             </li>
                         @endpermission
+                        @permission('config image')
+                            <li>
+                                <a href="{!! route('admin.lastcongress.index') !!}">
+                                    <span class="uk-margin-small-right" uk-icon="icon: info"></span>
+                                    Info de ultimo congreso
+                                </a>
+                            </li>
+                        @endpermission
                         @permission('roles')
                             <hr class="uk-divider-icon">
                             <li class="uk-parent">
