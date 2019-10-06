@@ -1,7 +1,12 @@
 -> remover opcion de editr nombre del permiso, y qu eno se puede crear
 
--> crear una seccion llamada "Info de ultimo congreso"
---- nombre a mostrar, un link web o un archivo
---- slo se permite una opcion.
+->------------
+1- baner, publica - admin y pantalla inicial app
+2- foter aceso pginas u, public admin
 
+3- cuando subo archivo desde la app, el administrador tiene q aprobar esos archivos
+- solo se muestran los archivos aprobados por el admin.
+
+- el usuario puede actualizar la info de los archivos y estos se desaprueban y tiene que ser nuevamente aprobados
+- opcion en la app de ver mis archivos
 
