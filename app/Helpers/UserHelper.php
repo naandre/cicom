@@ -25,8 +25,10 @@ class UserHelper
             'lastname' => $data['lastname']
         ];
         /* cerifica si el dato existe y se ingresa en el arreglo */
-        if(isset($data['email']) and !empty($data['email'])) $input['email']=$data['email'];
-        if(isset($data['user']) and !empty($data['user'])) $input['user']=$data['user'];
+        if(isset($data['email']) and !empty($data['email'])){
+            $input['email']=$data['email'];
+            $input['user']=$data['email'];
+        }
         if(isset($data['password']) and !empty($data['password'])) $input['password']=Hash::make($data['password']);
 
         return $input;

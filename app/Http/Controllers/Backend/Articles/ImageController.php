@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Backend\Articles;
 use App\Http\Controllers\Backend\Controller;
 use App\Models\Articles\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use OsTheNeo\Toaster\FilesHelper;
 
 class ImageController extends Controller
 {
     protected $rules=[
         'name' => ['required', 'string', 'max:50','unique:categories'],
-        'state' => ['required', 'numeric'],
+        'image' => ['required', 'file'],
     ];
     public function index()
     {
