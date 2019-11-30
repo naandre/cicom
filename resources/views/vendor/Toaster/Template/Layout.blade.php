@@ -143,6 +143,14 @@
                                 </ul>
                             </li>
                         @endpermission
+                        @permission('developer')
+                        <li>
+                            <a href="{!! route('graphql-playground') !!}">
+                                <span class="uk-margin-small-right" uk-icon="icon: code"></span>
+                                Consola Graphql
+                            </a>
+                        </li>
+                        @endpermission
                     </ul>
                 </div>
             </div>

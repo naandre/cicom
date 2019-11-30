@@ -29,7 +29,7 @@ return [
 
     'route' => [
          'prefix' => 'admin',
-         'middleware' => ['web','auth','permission:dashboard','permission:config'],
+         'middleware' => ['web','auth','permission:dashboard','permission:developer'],
         'domain' => env('GRAPHQL_PLAYGROUND_DOMAIN', null),
     ],
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Users;
 use App\Http\Controllers\Backend\Controller;
 use App\Models\Users\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class PermissionController extends Controller
@@ -15,17 +16,22 @@ class PermissionController extends Controller
     ];
     public function index()
     {
+        $buttons=[];
+        if(Auth::user()->can(['developer'])){
+            $buttons=[
+                'top-right' => [
+                    'kind'  => 'link',
+                    'route' => 'admin.permissions.create',
+                    'text'  => 'Nuevo Permiso']
+            ];
+        }
+
         $indexTable = (object)['visualization' => 'table',
             'model'         => new Permission(),
             'data'          => 'ajax',
             'schema'        => 'permissionTable',
             'filters'       =>'filter[isNull]=deleted_at',
-            'buttons'       => [
-                'top-right' => [
-                    'kind'  => 'link',
-                    'route' => 'admin.permissions.create',
-                    'text'  => 'Nuevo Permiso']
-            ]];
+            'buttons'       => $buttons];
         $this->options = ['contents' => $indexTable];
 
         return parent::index();
