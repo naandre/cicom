@@ -28,8 +28,8 @@ return [
     */
 
     'route' => [
-        // 'prefix' => '',
-        // 'middleware' => ['web']
+         'prefix' => 'admin',
+         'middleware' => ['web','auth','permission:dashboard','permission:config'],
         'domain' => env('GRAPHQL_PLAYGROUND_DOMAIN', null),
     ],
 

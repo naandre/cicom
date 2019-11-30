@@ -165,11 +165,11 @@ Use an argument to modify the query builder for a field.
 directive @builder(
   """
   Reference a method that is passed the query builder.
-  Consists of two parts: a class name and a method name, seperated by an `@` symbol.
+  Consists of two parts: a class name and a method name, separated by an `@` symbol.
   If you pass only a class name, the method name defaults to `__invoke`.
   """
   method: String!
-) on FIELD_DEFINITION
+) on ARGUMENT_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\CacheDirective
 """
@@ -229,6 +229,22 @@ directive @complexity(
   If you pass only a class name, the method name defaults to `__invoke`.
   """
   resolver: String
+) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\CountDirective
+"""
+Returns the count of a given relationship or model.
+"""
+directive @count(
+  """
+  The relationship which you want to run the count on.
+  """
+  relation: String
+
+  """
+  The model to run the count on.
+  """
+  model: String
 ) on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\CreateDirective
@@ -447,7 +463,7 @@ directive @inject(
   within the incoming argument.
   """
   name: String!
-) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+) on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\InterfaceDirective
 """
@@ -496,9 +512,25 @@ directive @middleware(
   checks: [String!]
 ) on FIELD_DEFINITION
 
+# Directive class: Nuwave\Lighthouse\Schema\Directives\ModelClassDirective
+"""
+Map a model class to an object type.
+This can be used when the name of the model differs from the name of the type.
+
+**This directive will be renamed to @model in v5.**
+"""
+directive @modelClass(
+    """
+    The class name of the corresponding model.
+    """
+    class: String!
+) on OBJECT
+
 # Directive class: Nuwave\Lighthouse\Schema\Directives\ModelDirective
 """
 Enable fetching an Eloquent model by its global id through the `node` query.
+
+@deprecated(reason: "Use @node instead. This directive will be repurposed and do what @modelClass does now in v5.")
 """
 directive @model on OBJECT
 
@@ -599,7 +631,9 @@ directive @neq(
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\NodeDirective
 """
-Register a type for relay global object identification.
+Register a type for Relay's global object identification.
+When used without any arguments, Lighthouse will attempt
+to resolve the type through a model with the same name.
 """
 directive @node(
   """
@@ -607,7 +641,13 @@ directive @node(
   Consists of two parts: a class name and a method name, seperated by an `@` symbol.
   If you pass only a class name, the method name defaults to `__invoke`.
   """
-  resolver: String!
+  resolver: String
+
+  """
+  Specify the class name of the model to use.
+  This is only needed when the default model resolution does not work.
+  """
+  model: String
 ) on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\NotInDirective
@@ -729,6 +769,18 @@ directive @scalar(
   class: String!
 ) on SCALAR
 
+# Directive class: Nuwave\Lighthouse\Schema\Directives\ScopeDirective
+"""
+Adds a scope to the query builder.
+The scope method will receive the client-given value of the argument as the second parameter.
+"""
+directive @scope(
+  """
+  The name of the scope.
+  """
+  name: String
+) on ARGUMENT_DEFINITION
+
 # Directive class: Nuwave\Lighthouse\Schema\Directives\SearchDirective
 """
 Perform a full-text by the given input value.
@@ -742,9 +794,10 @@ directive @search(
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\SpreadDirective
 """
-Spread out the nested values of an argument of type input object into it\'s parent.
+Merge the fields of a nested input object into the arguments of its parent
+when processing the field arguments given by a client.
 """
-directive @spread on ARGUMENT_DEFINITION
+directive @spread on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\SubscriptionDirective
 """
@@ -782,6 +835,24 @@ directive @union(
 Update an Eloquent model with the input values of the field.
 """
 directive @update(
+  """
+  Specify the class name of the model to use.
+  This is only needed when the default model resolution does not work.
+  """
+  model: String
+
+  """
+  Set to `true` to use global ids for finding the model.
+  If set to `false`, regular non-global ids are used.
+  """
+  globalId: Boolean = false
+) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\UpsertDirective
+"""
+Create or update an Eloquent model with the input values of the field.
+"""
+directive @upsert(
   """
   Specify the class name of the model to use.
   This is only needed when the default model resolution does not work.
