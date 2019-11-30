@@ -5,8 +5,14 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 type Query {
-    users: [User!]! @paginate(type: "paginator" model: "App\Users\User")
-    user(id: ID @eq): User @find(model: "App\Users\User")
+    users: [User!]! @all(model: "App\\Models\\Users\\User")
+    user(id: ID @eq): User @find(model: "App\\Models\\Users\\User")
+    me: User! @auth
+    categories: [Category!]! @all(model: "App\\Models\\Articles\\Category")
+    extensions: [Extension!]! @all(model: "App\\Models\\Articles\\Extension")
+    images:[Image!] @all(model: "App\\Models\\Articles\\Image")
+    lascongress:[LastCongress] @all(model: "App\\Models\\Articles\\LastCongress")
+    lines:[LinesInvestigation!] @all(model: "App\\Models\\Articles\\LinesInvestigation")
 }
 
 type User {
@@ -16,4 +22,39 @@ type User {
     email: String!
     created_at: DateTime!
     updated_at: DateTime!
+}
+
+type Category{
+    id: Int!
+    name: String!
+    state:Int!
+}
+
+type Extension{
+    id: Int!
+    name: String!
+    state:Int!
+}
+
+type Image {
+    id: Int!
+    name: String!
+    image: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type LastCongress {
+    id: Int!
+    name: String!
+    url: String
+    file: String
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type LinesInvestigation{
+    id: Int!
+    name: String!
+    state:Int!
 }
