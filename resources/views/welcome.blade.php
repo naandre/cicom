@@ -9,6 +9,10 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+        <link rel="icon" href="{{asset('img/cicom-icon.png')}}" sizes="32x32" />
+        <link rel="icon" href="{{asset('img/cicom-icon-big.png')}}" sizes="192x192" />
+        <link rel="apple-touch-icon-precomposed" href="{{asset('img/cicom-icon-apel.png')}}" />
+
         <!-- Styles -->
         <style>
             html, body {

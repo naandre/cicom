@@ -17,6 +17,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit-icons.min.js"></script>
 
+    <link rel="icon" href="{{asset('img/cicom-icon.png')}}" sizes="32x32" />
+    <link rel="icon" href="{{asset('img/cicom-icon-big.png')}}" sizes="192x192" />
+    <link rel="apple-touch-icon-precomposed" href="{{asset('img/cicom-icon-apel.png')}}" />
+
 </head>
 <body>
 

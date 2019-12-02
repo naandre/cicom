@@ -12,14 +12,14 @@
 
 ->---------------------------
 
-2-> cargar por defecto el admin
+++2-> cargar por defecto el admin
 3-> poner icono en pestaña de cicomm
 --- en app
 4-> poner el filtro de autores
 
 _____ Resumen de video llamada __________
 
-1. Cuando se accede al aplicación estrar de una vez al administrador
++++1. Cuando se accede al aplicación estrar de una vez al administrador
 2. Cambiar icono del aplicactivo por el logo del cicom También que se muestre en la página del administrador.
 3.  Menú lleva tílde (indicaciones al inicio)
 ++4. Como se va a mostrar la última información del congreso.
