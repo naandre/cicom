@@ -34,7 +34,7 @@
 
                     <ul class="uk-navbar-nav">
                         <li class="uk-active"><a class="uk-navbar-toggle" href="#" uk-toggle="target: #offcanvas-nav">
-                                <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
+                                <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menú</span>
                             </a></li>
                     </ul>
 
@@ -98,6 +98,14 @@
                                 <a href="{!! route('admin.line.index') !!}">
                                     <span class="uk-margin-small-right" uk-icon="icon: album"></span>
                                     Lineas de investigación
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('consulta_art')
+                            <li>
+                                <a href="{!! route('admin.article.index') !!}">
+                                    <span class="uk-margin-small-right" uk-icon="icon: file"></span>
+                                    Listado de Archivos
                                 </a>
                             </li>
                         @endpermission

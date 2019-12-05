@@ -149,11 +149,29 @@
                                     if(isset($submitButton)) $saveButton = !$submitButton;
                                 @endphp
 
-                                @if($access == 'edit')
-                                    {!! Form::model($model, ['route' => [$model->routes[$access], $model->id], 'files'=>$model->files or false, 'method' => 'PUT', 'class'=>'uk-form-horizontal']) !!}
+                                @if($access == 'mixt')
+                                    @php
+                                        if(!isset($model))
+                                            $model = $models[$content->model];
+                                        $route=[$model->routes[$access]];
+                                        if(isset($mixt) and isset($mixt['parameters'])){
+                                            if(is_array($mixt['parameters'])) $route=array_merge($route,$mixt['parameters']);
+                                            else $route[]=$mixt['parameters'];
+                                        }
+                                    @endphp
+
+                                    @if(isset($mixt) and isset($mixt['model']))
+                                        {!! Form::model($model, ['route' => $route, 'files'=>$model->files or false, 'method' => 'POST', 'class'=>'uk-form-horizontal uk-margin-large']) !!}
+                                    @else
+                                        {!! Form::open(['route' => $route, 'files'=>$model->files or false, 'method'=>'POST', 'class'=>'uk-form-horizontal uk-margin-large']) !!}
+                                    @endif
+
+                                @elseif($access=='edit')
+                                    @php if(count($models)>1) $model = $models[$content->model]; @endphp
+                                    {!! Form::model($model, ['route' => [$model->routes[$access], $id], 'files'=>$model->files or false, 'method' => 'PUT', 'class'=>'uk-form-horizontal uk-margin-large']) !!}
                                 @else
                                     @php $model = $models[$content->model]; @endphp
-                                    {!! Form::open(['route' => $model->routes[$access], 'files'=>$model->files or false, 'method'=>'POST', 'class'=>'uk-form-horizontal']) !!}
+                                    {!! Form::open(['route' => $model->routes[$access], 'files'=>$model->files or false, 'method'=>'POST', 'class'=>'uk-form-horizontal uk-margin-large']) !!}
                                 @endif
 
                                 @if(isset($pre))

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Articles\Article;
+use App\Models\Articles\Author;
 use App\Models\Articles\Category;
 use App\Models\Articles\Extension;
 use App\Models\Articles\Image;
@@ -25,6 +27,8 @@ class Dictionary
             'extensionTable'  => Extension::class,
             'imageTable'  => Image::class,
             'lastcongressTable'  => LastCongress::class,
+            'articleTable'  => Article::class,
+            'authorTable'  => Author::class,
         ];
 
         return $dictionary->$ask;

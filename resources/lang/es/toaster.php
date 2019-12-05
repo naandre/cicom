@@ -74,6 +74,18 @@ return [
     'images'=>[
         'name'=>'Nombre',
         'image'=>'Imagen'
+    ],
+    /**
+     * Diccionario para el modelo Article
+    */
+    "articles"=>[
+        "title"=>'Título',
+        "description"=>'Descripción',
+        "category_id"=>'Categoría',
+        "line_id"=>'Línea de Investigación',
+        "editorial"=>'Editorial',
+        "publication_date"=>'Fecha de Publicación',
+        "file"=>'Archivo',
     ]
 
 ];

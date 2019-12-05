@@ -10,7 +10,7 @@
             </h2>
             <hr />
             <h4>
-                Selecciona una de las opciones del menu, que se encuentra ubicado en la parte superior izquierda
+                Selecciona una de las opciones del menú, que se encuentra ubicado en la parte superior izquierda
             </h4>
         </div>
     </div>

@@ -20,3 +20,9 @@ Route::resource('extension','Backend\Articles\ExtensionController')->middleware(
 Route::resource('image','Backend\Articles\ImageController')->middleware('permission:config image');
 /** Ultimo congreso */
 Route::resource('lastcongress','Backend\Articles\LastCongressController')->middleware('permission:config image');
+/** Articulo */
+Route::resource('article','Backend\Articles\ArticleController')->middleware('permission:consulta_art');
+/** Autores */
+Route::resource('author','Backend\Articles\AuthorController')->middleware('permission:cargar_arch');
+Route::get('author\{articleId}\index','Backend\Articles\AuthorController@indexCustom')->name('author.index');
+Route::get('author\{articleId}\create','Backend\Articles\AuthorController@createCustomer')->name('author.create');
