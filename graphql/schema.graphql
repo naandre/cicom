@@ -13,7 +13,13 @@ type Query {
     images:[Image!] @all(model: "App\\Models\\Articles\\Image")
     lascongress:[LastCongress] @all(model: "App\\Models\\Articles\\LastCongress")
     lines:[LinesInvestigation!] @all(model: "App\\Models\\Articles\\LinesInvestigation")
+    articles:[Articles!] @all(model: "App\\Models\\Articles\\Article")
+#    articleFilter(title: Title @eq): Articles @field
 }
+
+#input Title {
+#
+#}
 
 type User {
     id: ID!
@@ -57,4 +63,15 @@ type LinesInvestigation{
     id: Int!
     name: String!
     state:Int!
+}
+
+type Articles{
+    id: Int!
+    title: String!
+    description: String!
+    category_id: Int!
+    line_id: Int!
+    editorial: String!
+    publication_date: String!
+    file: String!
 }
