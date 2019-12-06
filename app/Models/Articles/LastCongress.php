@@ -17,7 +17,7 @@ class LastCongress extends Model
     /**
      * @var string
      */
-    protected $table="images";
+    protected $table="last_congress";
     /**
      * @var array
      */
