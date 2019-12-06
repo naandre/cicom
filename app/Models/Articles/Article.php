@@ -3,9 +3,12 @@
 namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model
 {
+    use SoftDeletes;
+
     protected $table="articles";
 
     protected $fillable=["title","description","category_id","line_id","editorial","publication_date","file","user_id"];
