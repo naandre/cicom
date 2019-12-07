@@ -15,7 +15,9 @@ class ExtensionController extends Controller
     ];
     public function index()
     {
-        $indexTable = (object)['visualization' => 'table',
+        $indexTable = (object)[
+            'title' => 'Extensiones',
+            'visualization' => 'table',
             'model'         => new Extension(),
             'data'          => 'ajax',
             'schema'        => 'extensionTable',
@@ -31,10 +33,11 @@ class ExtensionController extends Controller
         return parent::index();
     }
 
-    function Forms() {
+    function Forms($title) {
         $models = (object)['Extension' => Extension::class];
 
         $extensionForm = (object)[
+            'title' => $title,
             'visualization' => 'form',
             'model' => 'Extension',
             'buttons'       => [
@@ -53,7 +56,7 @@ class ExtensionController extends Controller
 
     public function create()
     {
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Crear extensión');
         return parent::create();
     }
 
@@ -68,7 +71,7 @@ class ExtensionController extends Controller
 
     public function edit($id) {
         $this->Model=Extension::find($id);
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Editar extensión '.$this->Model->name);
         return parent::edit($id);
     }
 

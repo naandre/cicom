@@ -105,7 +105,7 @@
                             <li>
                                 <a href="{!! route('admin.article.index') !!}">
                                     <span class="uk-margin-small-right" uk-icon="icon: file"></span>
-                                    Listado de Archivos
+                                    Gestión documentos
                                 </a>
                             </li>
                         @endpermission

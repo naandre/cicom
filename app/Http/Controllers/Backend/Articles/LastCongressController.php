@@ -15,7 +15,9 @@ class LastCongressController extends Controller
     ];
     public function index()
     {
-        $indexTable = (object)['visualization' => 'table',
+        $indexTable = (object)[
+            'title' => 'Información de ultimo congresos',
+            'visualization' => 'table',
             'model'         => new LastCongress(),
             'data'          => 'ajax',
             'schema'        => 'lastcongressTable',
@@ -31,10 +33,11 @@ class LastCongressController extends Controller
         return parent::index();
     }
 
-    function Forms() {
+    function Forms($title) {
         $models = (object)['LastCongress' => LastCongress::class];
 
         $lastcongressForm = (object)[
+            'title' => $title,
             'visualization' => 'form',
             'model' => 'LastCongress',
             'buttons'       => [
@@ -53,7 +56,7 @@ class LastCongressController extends Controller
 
     public function create()
     {
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Agregar Información de ultimo congreso');
         return parent::create();
     }
 
@@ -70,7 +73,7 @@ class LastCongressController extends Controller
 
     public function edit($id) {
         $this->Model=LastCongress::find($id);
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Editar información del congreso '.$this->Model->name);
         return parent::edit($id);
     }
 

@@ -37,7 +37,8 @@ class UserController extends Controller
             'data'          => 'ajax',
             'schema'        => 'userTable',
             'filters'       =>'filter[isNull]=deleted_at',
-            'buttons'       =>$buttons
+            'buttons'       =>$buttons,
+            'title'         =>'Listado de usuarios'
         ];
         $this->options = ['contents' => $indexTable];
 
@@ -46,7 +47,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $this->options = $this->Forms();
+        $this->options = $this->Forms("Nuevo Usuario");
         return parent::create();
     }
 
@@ -61,10 +62,11 @@ class UserController extends Controller
         return redirect()->route('admin.users.index');
     }
 
-    function Forms() {
+    function Forms($title) {
         $models = (object)['User' => User::class];
 
         $userForm = (object)[
+                'title'=>$title,
                 'visualization' => 'form','model' => 'User','date'=>['date'=>[]],
                 'buttons'       => [
                     'top-right' => [
@@ -86,7 +88,7 @@ class UserController extends Controller
         /**@var Role $role*/
         if($role=$user->roles()->first()) $user->role_id=$role->id;
         $this->Model=$user;
-        $this->options = $this->Forms();
+        $this->options = $this->Forms("Editar Usuario ".$user->name);
         return parent::edit($id);
     }
 

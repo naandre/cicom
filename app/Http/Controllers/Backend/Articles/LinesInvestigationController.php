@@ -15,7 +15,9 @@ class LinesInvestigationController extends Controller
     ];
     public function index()
     {
-        $indexTable = (object)['visualization' => 'table',
+        $indexTable = (object)[
+            'title' => 'Lineas de Investigación',
+            'visualization' => 'table',
             'model'         => new LinesInvestigation(),
             'data'          => 'ajax',
             'schema'        => 'linesTable',
@@ -31,10 +33,11 @@ class LinesInvestigationController extends Controller
         return parent::index();
     }
 
-    function Forms() {
+    function Forms($title) {
         $models = (object)['LinesInvestigation' => LinesInvestigation::class];
 
         $lineForm = (object)[
+            'title' => $title,
             'visualization' => 'form',
             'model' => 'LinesInvestigation',
             'buttons'       => [
@@ -53,7 +56,7 @@ class LinesInvestigationController extends Controller
 
     public function create()
     {
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Crear Linea de Investigación');
         return parent::create();
     }
 
@@ -68,7 +71,7 @@ class LinesInvestigationController extends Controller
 
     public function edit($id) {
         $this->Model=LinesInvestigation::find($id);
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Editar Linea de Investigación '.$this->Model->name);
         return parent::edit($id);
     }
 

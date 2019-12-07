@@ -16,7 +16,9 @@ class AuthorController extends Controller
 
     public function indexCustom($articleId)
     {
-        $indexTable = (object)['visualization' => 'table',
+        $indexTable = (object)[
+            'title' => 'Autores del documento',
+            'visualization' => 'table',
             'model'         => new Author(),
             'data'          => 'ajax',
             'schema'        => 'authorTable',
@@ -32,10 +34,11 @@ class AuthorController extends Controller
         return parent::index();
     }
 
-    function Forms($articleId) {
+    function Forms($articleId,$title) {
         $models = (object)['Author' => Author::class];
 
         $authorForm = (object)[
+            'title' => $title,
             'visualization' => 'form',
             'model' => 'Author',
             'buttons'       => [
@@ -55,7 +58,7 @@ class AuthorController extends Controller
 
     public function createCustomer($articleId)
     {
-        $this->options = $this->Forms($articleId);
+        $this->options = $this->Forms($articleId,"Agregar Autores del documento");
         return parent::create()->with(['access'=>'mixt']);
     }
 
@@ -72,7 +75,7 @@ class AuthorController extends Controller
 
     public function edit($id) {
         $this->Model=Author::find($id);
-        $this->options = $this->Forms($this->Model->article_id);
+        $this->options = $this->Forms($this->Model->article_id,'Editar Autores del documento');
         return parent::edit($id);
     }
 

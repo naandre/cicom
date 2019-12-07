@@ -16,7 +16,9 @@ class ImageController extends Controller
     ];
     public function index()
     {
-        $indexTable = (object)['visualization' => 'table',
+        $indexTable = (object)[
+            'title' => 'Gestionar Imágenes',
+            'visualization' => 'table',
             'model'         => new Image(),
             'data'          => 'ajax',
             'schema'        => 'imageTable',
@@ -32,10 +34,11 @@ class ImageController extends Controller
         return parent::index();
     }
 
-    function Forms() {
+    function Forms($title) {
         $models = (object)['Image' => Image::class];
 
         $imageForm = (object)[
+            'title' => $title,
             'visualization' => 'form',
             'model' => 'Image',
             'buttons'       => [
@@ -54,7 +57,7 @@ class ImageController extends Controller
 
     public function create()
     {
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Subir Imagen');
         return parent::create();
     }
 

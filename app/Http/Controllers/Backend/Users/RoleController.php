@@ -15,7 +15,9 @@ class RoleController extends Controller
     ];
     public function index()
     {
-        $indexTable = (object)['visualization' => 'table',
+        $indexTable = (object)[
+            'title' => 'Listado de roles',
+            'visualization' => 'table',
             'model'         => new Role(),
             'data'          => 'ajax',
             'schema'        => 'roleTable',
@@ -31,10 +33,11 @@ class RoleController extends Controller
         return parent::index();
     }
 
-    function Forms() {
+    function Forms($title) {
         $models = (object)['Role' => Role::class];
 
         $roleForm = (object)[
+            'title' => $title,
             'visualization' => 'form',
             'model' => 'Role',
             'buttons'       => [
@@ -53,7 +56,7 @@ class RoleController extends Controller
 
     public function create()
     {
-        $this->options = $this->Forms();
+        $this->options = $this->Forms("Nuevo rol");
         return parent::create();
     }
 
@@ -74,7 +77,7 @@ class RoleController extends Controller
         /**Se cargan los permisos*/
         $role->permissions=implode(',',$role->getPermissionIds());
         $this->Model=$role;
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Editar rol '.$this->Model->display_name);
         return parent::edit($id);
     }
 

@@ -15,7 +15,9 @@ class CategoryController extends Controller
     ];
     public function index()
     {
-        $indexTable = (object)['visualization' => 'table',
+        $indexTable = (object)[
+            'title'     =>  'Listado de Categorías',
+            'visualization' => 'table',
             'model'         => new Category(),
             'data'          => 'ajax',
             'schema'        => 'categoryTable',
@@ -31,10 +33,11 @@ class CategoryController extends Controller
         return parent::index();
     }
 
-    function Forms() {
+    function Forms($title) {
         $models = (object)['Category' => Category::class];
 
         $categoryForm = (object)[
+            'title' =>  $title,
             'visualization' => 'form',
             'model' => 'Category',
             'buttons'       => [
@@ -53,7 +56,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Nueva Categoría');
         return parent::create();
     }
 
@@ -68,7 +71,7 @@ class CategoryController extends Controller
 
     public function edit($id) {
         $this->Model=Category::find($id);
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Editar Categoría '.$this->Model->name);
         return parent::edit($id);
     }
 

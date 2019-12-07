@@ -26,7 +26,9 @@ class PermissionController extends Controller
             ];
         }
 
-        $indexTable = (object)['visualization' => 'table',
+        $indexTable = (object)[
+            'title' => 'Listado de permisos',
+            'visualization' => 'table',
             'model'         => new Permission(),
             'data'          => 'ajax',
             'schema'        => 'permissionTable',
@@ -37,10 +39,11 @@ class PermissionController extends Controller
         return parent::index();
     }
 
-    function Forms() {
+    function Forms($title) {
         $models = (object)['Permission' => Permission::class];
 
         $permissionForm = (object)[
+            'title' => $title,
             'visualization' => 'form',
             'model' => 'Permission',
             'buttons'       => [
@@ -59,7 +62,7 @@ class PermissionController extends Controller
 
     public function create()
     {
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Nuevo permiso');
         return parent::create();
     }
 
@@ -74,7 +77,7 @@ class PermissionController extends Controller
 
     public function edit($id) {
         $this->Model=Permission::find($id);
-        $this->options = $this->Forms();
+        $this->options = $this->Forms('Editar permiso '.$this->Model->display_name);
         return parent::edit($id);
     }
 
