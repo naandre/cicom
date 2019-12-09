@@ -104,7 +104,7 @@ class LastCongressController extends Controller
         }
         Session::flash('success','Registro eliminada');
         $lastcongress->delete();
-        FilesHelper::destroy('lastcongress/'.$lastcongress->lastcongress);
+        if($lastcongress->file) FilesHelper::destroy('lastcongress/'.$lastcongress->file);
         return redirect()->route('admin.lastcongress.index');
     }
 }
