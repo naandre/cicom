@@ -14,7 +14,14 @@ type Query {
     lascongress:[LastCongress] @all(model: "App\\Models\\Articles\\LastCongress")
     lines:[LinesInvestigation!] @all(model: "App\\Models\\Articles\\LinesInvestigation")
     articles:[Articles!] @all(model: "App\\Models\\Articles\\Article")
-#    articleFilter(title: Title @eq): Articles @field
+    author:[Author!] @all(model: "App\\Models\\Articles\\Author")
+    articleFilter(
+        title: String
+        category_id: Int
+        line_id: Int
+        publication_date: Date,
+        author: String
+    ): [Articles!]
 }
 
 #input Title {
@@ -73,5 +80,12 @@ type Articles{
     line_id: Int!
     editorial: String!
     publication_date: String!
-    file: String!
+    file: String!,
+    authors:[Author!] @hasMany
+}
+
+type Author{
+    id:Int!
+    name:String!
+    article_id:Int!
 }

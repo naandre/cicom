@@ -3,6 +3,8 @@
 namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model
@@ -67,11 +69,15 @@ class Article extends Model
         'create' => 'admin.article.store'
     ];
 
-    public function category(){
+    public function category() : BelongsTo{
         return $this->belongsTo(Category::class,'category_id');
     }
 
-    public function line(){
+    public function line() : BelongsTo{
         return $this->belongsTo(LinesInvestigation::class,'line_id');
+    }
+
+    public function authors() : HasMany {
+        return  $this->hasMany(Author::class,'article_id');
     }
 }
