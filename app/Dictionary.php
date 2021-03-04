@@ -3,8 +3,12 @@
 namespace App;
 
 use App\Models\Articles\Article;
+use App\Models\Articles\ArticleReport;
 use App\Models\Articles\Author;
+use App\Models\Articles\CargueMasivo;
 use App\Models\Articles\Category;
+use App\Models\Articles\DetalleCargueMasivo;
+use App\Models\Articles\EstadoCargue;
 use App\Models\Articles\Extension;
 use App\Models\Articles\Image;
 use App\Models\Articles\LastCongress;
@@ -28,7 +32,11 @@ class Dictionary
             'imageTable'  => Image::class,
             'lastcongressTable'  => LastCongress::class,
             'articleTable'  => Article::class,
+            'articleReport'  => ArticleReport::class,
             'authorTable'  => Author::class,
+            'cargueMasivoTable' => CargueMasivo::class,
+            'detalleCargueMasivoTable' => DetalleCargueMasivo::class,
+            'estadoCargueTable' => EstadoCargue::class
         ];
 
         return $dictionary->$ask;

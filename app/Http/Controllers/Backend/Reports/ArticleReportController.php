@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Articles;
+namespace App\Http\Controllers\Backend\Reports;
 
 use App\Http\Controllers\Backend\Controller;
-use App\Models\Articles\Article;
+use App\Models\Articles\ArticleReport;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,7 @@ use Illuminate\Validation\ValidationException;
 use OsTheNeo\Toaster\BladeEngine;
 use OsTheNeo\Toaster\FilesHelper;
 
-class ArticleController extends Controller
+class ArticleReportController extends Controller
 {
     protected $rules=[
         "title"=>['required','string','max:100'],
@@ -27,23 +27,13 @@ class ArticleController extends Controller
     public function index()
     {
         $buttons=[];
-        if(Auth::user()->can(['cargar_arch']))
-            $buttons=[
-                'top-right' => [
-                    'kind'  => 'link',
-                    'route' => 'admin.article.create',
-                    'text'  => 'Cargar Documento'],
-                'top-left' => [
-                    'kind'  => 'link',
-                    'route' => 'admin.cargueMasivo.create',
-                    'text'  => 'Cargar Documentos Masivamente'],
-            ];
+
         $indexTable = (object)[
-            'title' => 'Gestión de documentos',
+            'title' => 'Consulta de documentos',
             'visualization' => 'table',
-            'model'         => new Article(),
+            'model'         => new ArticleReport(),
             'data'          => 'ajax',
-            'schema'        => 'articleTable',
+            'schema'        => 'articleReport',
             'filters'       =>'filter[isNull]=deleted_at',
             'buttons'       => $buttons];
         $this->options = ['contents' => $indexTable];
@@ -68,11 +58,7 @@ class ArticleController extends Controller
         return $forms;
     }
 
-    public function create()
-    {
-        $this->options = $this->Forms('Crear documento');
-        return parent::create();
-    }
+
 
     public function store(Request $request)
     {
@@ -86,12 +72,7 @@ class ArticleController extends Controller
         return redirect()->route('admin.author.index',$article->id);
     }
 
-    public function edit($id) {
-        $this->Model = Article::find($id);
-        unset($this->Model->fields['file']['options']['required']);
-        $this->options = $this->Forms('Editar documento '.$this->Model->title);
-        return parent::edit($id);
-    }
+
 
     /**
      * @param Request $request
@@ -99,23 +80,6 @@ class ArticleController extends Controller
      * @return RedirectResponse
      * @throws ValidationException
      */
-    public function update(Request $request, $id)
-    {
-        $message="Lo sentimos, no se encontró el documento ";
-        $typeMessage='danger';
-        if(!empty($article=Article::find($id))){
-            unset($this->rules['file']);
-            $this->validate($request,$this->rules);
-            $input=$request->all();
-            if($request->file) $input['file']=FilesHelper::update($request,'file',$input['title'],'articles',$article->file);
-            $article->fill($input);
-            $article->save();
-            $message="Se actualizo el documento  ".$article->name." de forma exitosa";
-            $typeMessage='success';
-        }
-        Session::flash($typeMessage, $message);
-        return redirect()->route('admin.article.index');
-    }
 
     public function show($id)
     {
@@ -144,17 +108,5 @@ class ArticleController extends Controller
 
         $this->options = ['contents' => [$raceDetail]];
         return parent::show($id);
-    }
-
-    public function destroy($id,Request $request){
-        /**@var Article $article*/
-        if(empty($article=Article::find($id))){
-            Session::flash('danger','No se encontró el documento  especificado');
-            return redirect()->route('admin.article.index');
-        }
-        Session::flash('success','documento  eliminado');
-        $article->delete();
-        FilesHelper::destroy('articles/'.$article->file);
-        return redirect()->route('admin.article.index');
     }
 }

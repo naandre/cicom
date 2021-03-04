@@ -24,3 +24,64 @@ _____ Resumen de video llamada __________
 3.  Menú lleva tílde (indicaciones al inicio)
 ++4. Como se va a mostrar la última información del congreso.
 5. un artículo puede tener verios autores, y cuando lo búsque puede ser cualquiera de ella
+
+Datos MySQL
+c1c0m2021
+
+
+zcat miscurso_cicom.sql.gz | mysql -u root -p miscurso_cicom
+
+CREATE USER 'miscurso_ccm_adm'@'localhost' IDENTIFIED BY 'EmHw&%9Q5+0I';
+GRANT ALL PRIVILEGES ON miscurso_cicom.* TO 'miscurso_ccm_adm'@'localhost';
+
+HASH=795f976fe0ebd8b75f26a6dd68f78fd3453ce79f32ecb33e7fd087d39bfeb978342fb73ac986cd4f54edd0dc902601dc
+
+php artisan serve
+
+APP 172.16.5.19:8000
+
+
+tar xvf mysql-connector-odbc-8.0.21-linux-glibc2.12-x86-64bit.tar.gz
+
+
+Instalar driver MySQL en servidor APP
+https://medium.com/@joelzhang/install-mysql-odbc-drivers-in-ubuntu-18-04-39241072326a
+
+ip BD 172.16.5.67
+ip APP 172.16.5.19
+APP: servidores@ritaportal.udistrital.edu.co 10335
+BD: servidores@ritaportal.udistrital.edu.co 10337
+
+Puerto BD 3306
+Puerto Sitio Servidor APP 8000
+
+GRANT ALL ON miscurso_cicom.* TO 'miscurso_ccm_adm@172.16.5.19' IDENTIFIED BY 'EmHw&%9Q5+0I';
+
+test app
+mysql -u miscurso_ccm_adm -p EmHw&%9Q5+0I -h 172.16.5.67:3306
+mysql -u root -p c1c0m2021 -h 172.16.5.67:3306
+
+DROP User 'miscurso_ccm_adm'@'localhost';
+DROP User 'miscurso_ccm_adm@172.16.5.19';
+
+CREATE USER 'miscurso_ccm_adm'@'localhost' IDENTIFIED BY 'EmHw&%9Q5+0I';
+CREATE USER 'miscurso_ccm_adm'@'172.16.5.19' IDENTIFIED BY 'EmHw&%9Q5+0I';
+GRANT ALL PRIVILEGES ON miscurso_cicom.* TO 'miscurso_ccm_adm'@'localhost';
+GRANT ALL PRIVILEGES ON miscurso_cicom.* TO 'miscurso_ccm_adm'@'172.16.5.19';
+mysql --host=172.16.5.19 --user=miscurso_ccm_adm --password=EmHw&%9Q5+0I
+mysql -u miscurso_ccm_adm -p EmHw&%9Q5+0I -h 172.16.5.19
+<VirtualHost *:80>
+        ServerName admcicom.ritaudistrital.edu.co
+        ServerAdmin root@admcicom.ritaudistrital.edu.co
+        ServerAlias www.admcicom.ritaudistrital.edu.co
+		<Directory /var/www/cicom>
+Options Indexes FollowSymLinks MultiViews
+AllowOverride All
+Require all granted
+</Directory>
+        DocumentRoot /var/www/cicom
+</VirtualHost>
+
+chown -R www-data:www-data /var/www/cicom
+
+CREATE VIEW ArticleReport AS SELECT A.ID, A.title AS TITULO, A.description AS DESCRIPCION, C.name AS CATEGORIA, L.name AS "LINEA INVESTIGACION", A.EDITORIAL, A.publication_date AS "FECHA PUBLICACION", GROUP_CONCAT(CONCAT(AU.name,' ',AU.lastname) SEPARATOR ',') as "AUTORES", A.deleted_at FROM articles A INNER JOIN categories C ON A.category_id = C.id INNER JOIN lines_investigation L ON A.line_id = L.id INNER JOIN authors AU ON A.id = AU.article_id GROUP BY A.id;

@@ -17,7 +17,8 @@
         "mll-lab/laravel-graphql-playground": "^2.0",
         "nuwave/lighthouse": "^4.3",
         "ostheneo/toaster": "dev-hepersFiles",
-        "zizaco/entrust": "5.2.x-dev"
+        "zizaco/entrust": "5.2.x-dev",
+        "phpoffice/phpspreadsheet": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

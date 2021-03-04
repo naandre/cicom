@@ -14,6 +14,7 @@
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/css/uikit.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://getbootstrap.com/docs/4.0/scss/_card.scss">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit-icons.min.js"></script>
 
@@ -77,11 +78,17 @@
                                 Dashboard
                             </a>
                         </li>
+                        <li>
+                            <a href="{!! route('admin.search.index') !!}">
+                                <span class="uk-margin-small-right" uk-icon="icon: search"></span>
+                                Consultar articulos
+                            </a>
+                        </li>
                         @permission(['consultar_usu','crear_usu'])
                             <li>
                                 <a href="{!! route('admin.users.index') !!}">
                                     <span class="uk-margin-small-right" uk-icon="icon: users"></span>
-                                    Ususarios
+                                    Usuarios
                                 </a>
                             </li>
                         @endpermission
@@ -106,6 +113,14 @@
                                 <a href="{!! route('admin.article.index') !!}">
                                     <span class="uk-margin-small-right" uk-icon="icon: file"></span>
                                     Gestión documentos
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('consulta_art')
+                            <li>
+                                <a href="{!! route('admin.cargueMasivo.index') !!}">
+                                    <span class="uk-margin-small-right" uk-icon="icon: file"></span>
+                                    Cargue masivo de documentos
                                 </a>
                             </li>
                         @endpermission

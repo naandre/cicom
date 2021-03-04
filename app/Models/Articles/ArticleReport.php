@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Article extends Model
+class ArticleReport extends Model
 {
     use SoftDeletes;
 
-    protected $table="articles";
+    protected $table="ArticleReport";
 
-    protected $fillable=["title","description","category_id","line_id","editorial","publication_date","file","user_id"];
+    protected $fillable=["TITULO","DESCRIPCION","CATEGORIA","LINEA INVESTIGACION","EDITORIAL","FECHA PUBLICACION","AUTORES"];
 
     public $fields=[
         "title"=>['options'=>['required'=>'required']],
@@ -43,10 +43,15 @@ class Article extends Model
     public $files=true;
 
     public $schemas = [
-        'articleTable' => [
+        'articleReport' => [
             'id',
-            'title',
-            'publication_date',
+            'TITULO',
+            'DESCRIPCION',
+            'CATEGORIA',
+            'LINEA INVESTIGACION',
+            'EDITORIAL',
+            'FECHA PUBLICACION',
+            'AUTORES',
             '_links'
         ]
     ];
@@ -55,12 +60,6 @@ class Article extends Model
      * @var array
      */
     public $links = [
-        'articleTable' => [
-            ['Editar', 'admin.article.edit', 'id'],
-            ['Ver', 'admin.article.show', 'id'],
-            ['Autores', 'admin.author.index', 'id'],
-            ['Eliminar', 'admin.article.destroy', 'id','destroy']
-        ],
         'articleReport' => [
             ['Ver', 'admin.article.show', 'id']
         ]

@@ -44,7 +44,7 @@ return [
         /**
          * ruta predefinida donde se subiran todos los archivos
          */
-        'prefixUrl'=>'public/public/files/',
+        'prefixUrl'=>'public/files/',
         /**
          * ancho maximo para la imagen
          */

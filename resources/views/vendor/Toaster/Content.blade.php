@@ -4,6 +4,8 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css">
+    
+
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -77,6 +79,14 @@
                                         <li> {!! $key !!} : {!! $value !!}</li>
                                     @endforeach
                                 </ul>
+                            @elseif($content->visualization == 'listInList')
+                                @foreach($content->data as $item)
+                                    <ul class="uk-list uk-list-striped" style="border:dashed">
+                                        @foreach($item as $key => $value)
+                                            <li> {!! $key !!} : {!! $value !!}</li>
+                                        @endforeach
+                                    </ul>
+                                @endforeach
 
                             @elseif($content->visualization == 'table')
                                 <table id="{!! $content->schema !!}" class="uk-table uk-table-small uk-table-hover">
