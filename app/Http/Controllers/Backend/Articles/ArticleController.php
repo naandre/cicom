@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend\Articles;
 
 use App\Http\Controllers\Backend\Controller;
 use App\Models\Articles\Article;
+use App\Models\Articles\Pais;
+use App\Models\Articles\Ciudad;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -124,13 +126,24 @@ class ArticleController extends Controller
             Session::flash('danger', "Lo sentimos, no se encontró el documento  especificado");
             return redirect()->route('admin.article.index');
         }
-
+        if(empty($article->ciudad))
+        {
+            $ciudad = new Ciudad();
+            $pais = new Pais();
+        }
+        else{
+            $ciudad = $article->ciudad;
+            $pais = $article->ciudad->pais;
+        }
+        
         $data=[
             BladeEngine::Translate('title',$article)=>$article->title,
             BladeEngine::Translate('description',$article)=>$article->description,
             BladeEngine::Translate('category_id',$article)=>$article->category->name,
             BladeEngine::Translate('line_id',$article)=>$article->line->name,
             BladeEngine::Translate('editorial',$article)=>$article->editorial,
+            BladeEngine::Translate('publication_country',$article)=>$pais->nombre,
+            BladeEngine::Translate('publication_city',$article)=>$ciudad->nombre,
             BladeEngine::Translate('publication_date',$article)=>$article->publication_date,
             BladeEngine::Translate('file',$article)=>'<a  target="_blank" href="'.asset(config('toaster.fileUpload.prefixUrl').'articles/'.$article->file).'">'.$article->file.'</a>',
 
@@ -156,5 +169,11 @@ class ArticleController extends Controller
         $article->delete();
         FilesHelper::destroy('articles/'.$article->file);
         return redirect()->route('admin.article.index');
+    }
+
+    public function findCityFromCountry($idCountry)
+    {
+        $findCityFromCountry = Ciudad::where('idPais', $idCountry)->get();
+        return with(["findCityFromCountry" => $findCityFromCountry]);
     }
 }

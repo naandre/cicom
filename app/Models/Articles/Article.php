@@ -13,7 +13,7 @@ class Article extends Model
 
     protected $table="articles";
 
-    protected $fillable=["title","description","category_id","line_id","editorial","publication_date","file","user_id"];
+    protected $fillable=["title","description","category_id","line_id","editorial","publication_date","file","user_id","publication_city"];
 
     public $fields=[
         "title"=>['options'=>['required'=>'required']],
@@ -37,6 +37,19 @@ class Article extends Model
         ],
         "editorial",
         "publication_date",
+        "publication_country"=>[
+            'type'=>"select",
+            'from'=>'pais',
+            'take'=>['id','nombre'],
+            'options'=>['placeholder'=>'Seleccione una opción...','required'=>'required']
+        ],
+        "publication_city"=>[
+            'type'=>"select",
+            'from'=>'ciudad',
+            'take'=>['id','nombre'],
+            'where'=>['idPais'=>"pais"],
+            'options'=>['placeholder'=>'Seleccione una opción...','required'=>'required']
+        ],
         "file"=>['kind'=>'file','options'=>['accept'=>'.pdf','required'=>'required']],
     ];
 
@@ -79,6 +92,10 @@ class Article extends Model
 
     public function line() : BelongsTo{
         return $this->belongsTo(LinesInvestigation::class,'line_id');
+    }
+
+    public function ciudad() : BelongsTo{
+        return $this->belongsTo(Ciudad::class,'publication_city');
     }
 
     public function authors() : HasMany {

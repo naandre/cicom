@@ -132,6 +132,22 @@
                                 </a>
                             </li>
                         @endpermission
+                        @permission('config')
+                            <li>
+                                <a href="{!! route('admin.pais.index') !!}">
+                                    <span class="uk-margin-small-right" uk-icon="icon: code"></span>
+                                    Gestionar Paises publicación
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('config')
+                            <li>
+                                <a href="{!! route('admin.ciudad.index') !!}">
+                                    <span class="uk-margin-small-right" uk-icon="icon: code"></span>
+                                    Gestionar Ciudades ublicación
+                                </a>
+                            </li>
+                        @endpermission
                         @permission('config image')
                             <li>
                                 <a href="{!! route('admin.image.index') !!}">

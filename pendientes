@@ -57,6 +57,7 @@ Puerto Sitio Servidor APP 8000
 
 GRANT ALL ON miscurso_cicom.* TO 'miscurso_ccm_adm@172.16.5.19' IDENTIFIED BY 'EmHw&%9Q5+0I';
 
+hostname -I
 test app
 mysql -u miscurso_ccm_adm -p EmHw&%9Q5+0I -h 172.16.5.67:3306
 mysql -u root -p c1c0m2021 -h 172.16.5.67:3306

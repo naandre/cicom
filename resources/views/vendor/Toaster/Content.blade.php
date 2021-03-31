@@ -300,6 +300,21 @@
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.3/jquery.timepicker.min.js"></script>
                         @endif
                         <script>
+                            $('#publication_country').on('change', function(e){
+                                console.log(e);
+                                var idPais = e.target.value;
+                                var currentUrl = window.location.origin+"/admin/article/findCityFromCountry/"+idPais;
+                                $.get(currentUrl,function(data) {
+                                    $('#publication_city').empty();
+                                    $('#publication_city').append('<option value disable="true" selected="true">Seleccione una opción...</option>');
+                                    $.each(data, function(fetch, ciudad){
+                                        console.log(data);
+                                        for(i = 0; i < ciudad.length; i++){
+                                        $('#publication_city').append('<option value="'+ ciudad[i].id +'">'+ ciudad[i].nombre +'</option>');
+                                        }
+                                    })
+                                })
+                            });
                             $(document).ready(function () {
                                 $.datetimepicker.setLocale('es');
                                 @if(isset($content->date['date']))

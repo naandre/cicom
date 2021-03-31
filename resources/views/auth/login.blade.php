@@ -51,6 +51,12 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="col-md-8 offset-md-4">
+                                Para consultar las memorias del congreso ingrese con los siguientes datos (e-mail: <b>articulosconsulta.cicom@gmail.com</b>, Contraseña: <b>consulta</b>)
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

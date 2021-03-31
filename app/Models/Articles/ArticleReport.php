@@ -61,15 +61,8 @@ class ArticleReport extends Model
      */
     public $links = [
         'articleReport' => [
-            ['Ver', 'admin.article.show', 'id']
+            ['Ver', 'admin.search.show', 'id']
         ]
-    ];
-    /**
-     * @var array
-     */
-    public $routes = [
-        'edit'   => 'admin.article.update',
-        'create' => 'admin.article.store'
     ];
 
     public function category() : BelongsTo{

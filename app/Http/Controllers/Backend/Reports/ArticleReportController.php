@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Reports;
 
 use App\Http\Controllers\Backend\Controller;
 use App\Models\Articles\ArticleReport;
+use App\Models\Articles\Article;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,7 +87,16 @@ class ArticleReportController extends Controller
         /**@var Article $article*/
         if(empty($article=Article::find($id))){
             Session::flash('danger', "Lo sentimos, no se encontró el documento  especificado");
-            return redirect()->route('admin.article.index');
+            return redirect()->route('admin.search.index');
+        }
+        if(empty($article->ciudad))
+        {
+            $ciudad = new Ciudad();
+            $pais = new Pais();
+        }
+        else{
+            $ciudad = $article->ciudad;
+            $pais = $article->ciudad->pais;
         }
 
         $data=[
@@ -95,6 +105,8 @@ class ArticleReportController extends Controller
             BladeEngine::Translate('category_id',$article)=>$article->category->name,
             BladeEngine::Translate('line_id',$article)=>$article->line->name,
             BladeEngine::Translate('editorial',$article)=>$article->editorial,
+            BladeEngine::Translate('publication_country',$article)=>$pais->nombre,
+            BladeEngine::Translate('publication_city',$article)=>$ciudad->nombre,
             BladeEngine::Translate('publication_date',$article)=>$article->publication_date,
             BladeEngine::Translate('file',$article)=>'<a  target="_blank" href="'.asset(config('toaster.fileUpload.prefixUrl').'articles/'.$article->file).'">'.$article->file.'</a>',
 

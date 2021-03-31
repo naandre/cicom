@@ -7,6 +7,8 @@ use App\Models\Articles\ArticleReport;
 use App\Models\Articles\Author;
 use App\Models\Articles\CargueMasivo;
 use App\Models\Articles\Category;
+use App\Models\Articles\Pais;
+use App\Models\Articles\Ciudad;
 use App\Models\Articles\DetalleCargueMasivo;
 use App\Models\Articles\EstadoCargue;
 use App\Models\Articles\Extension;
@@ -36,7 +38,9 @@ class Dictionary
             'authorTable'  => Author::class,
             'cargueMasivoTable' => CargueMasivo::class,
             'detalleCargueMasivoTable' => DetalleCargueMasivo::class,
-            'estadoCargueTable' => EstadoCargue::class
+            'estadoCargueTable' => EstadoCargue::class,
+            'paisTable' => Pais::class,
+            'ciudadTable' => Ciudad::class
         ];
 
         return $dictionary->$ask;

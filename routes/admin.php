@@ -16,6 +16,10 @@ Route::resource('search','Backend\Reports\ArticleReportController')->middleware(
 Route::resource('category','Backend\Articles\CategoryController')->middleware('permission:config');
 /** Lineas de investigacion **/
 Route::resource('line','Backend\Articles\LinesInvestigationController')->middleware('permission:config');
+/** País **/
+Route::resource('pais','Backend\Articles\PaisController')->middleware('permission:config');
+/** Ciudad **/
+Route::resource('ciudad','Backend\Articles\CiudadController')->middleware('permission:config');
 /** Estensiones **/
 Route::resource('extension','Backend\Articles\ExtensionController')->middleware('permission:config');
 /** Imagenes **/
@@ -36,3 +40,4 @@ Route::get('detallecargue\{cargueMasivoId}\index','Backend\Articles\DetalleCargu
 Route::get('detallecargue\{cargueMasivoId}\create','Backend\Articles\DetalleCargueMasivoController@createDetalle')->name('detallecargue.create');
 Route::get('cargueMasivo\{cargueMasivoId}\download','Backend\Articles\CargueMasivoController@download')->name('cargueMasivo.download');
 Route::get('cargueMasivo\{cargueMasivoId}\descargarExcel','Backend\Articles\CargueMasivoController@descargarExcel')->name('cargueMasivo.descargarExcel');
+Route::get('article/findCityFromCountry/{idCountry}', 'Backend\Articles\ArticleController@findCityFromCountry');

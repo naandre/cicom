@@ -84,6 +84,8 @@ return [
         "category_id"=>'Categoría',
         "line_id"=>'Línea de Investigación',
         "editorial"=>'Editorial',
+        "publication_country"=>'Pais de Publicación',
+        "publication_city"=>'Ciudad de Publicación',
         "publication_date"=>'Fecha de Publicación',
         "file"=>'Archivo',
     ]

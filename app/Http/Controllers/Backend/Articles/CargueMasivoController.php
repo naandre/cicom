@@ -137,15 +137,37 @@ class CargueMasivoController extends Controller
             Session::flash('danger', "Lo sentimos, no se encontró el cargue  especificado");
             return redirect()->route('admin.cargueMasivo.index');
         }
-        $listaCategorias=current((array)DB::table('categories')->select(DB::raw('concat(id,"|",name) as name'))->pluck('name'));
-        $textoCategorias = implode(',', $listaCategorias);
-        $listaLineasInves=current((array)DB::table('lines_investigation')->select(DB::raw('concat(id,"|",name) as name'))->pluck('name'));
-        $textoLineasInves=implode(',',$listaLineasInves);
+        $listaCategorias=current((array)DB::table('categories')->select(DB::raw('concat(id,"|",name) as name'))->where('state','=','1')->get());
+        $listaLineasInves=current((array)DB::table('lines_investigation')->select(DB::raw('concat(id,"|",name) as name'))->where('state','=','1')->get());
+        $listaLugaresPublicacion=current((array)DB::table('pais')->join('ciudad','pais.id','=','ciudad.idPais')->select(DB::raw('concat(ciudad.id,"|",pais.nombre,",",ciudad.nombre) as nombre'))->get());
         $listaDetalleCargue=current((array)DB::table('detallecarguemasivo')->select(DB::raw('id,nombreDocumento'))->where('idCargueMasivo','=',$id)->get());
         $categoria=Category::all();
         require __DIR__.'/../../../../../vendor/autoload.php';
         $excel = new Spreadsheet();
+        $hojaInicial = $excel->getActiveSheet();
+        $hojaInicial->setTitle("Listas");
+        $hojaInicial->setCellValue("A1", "Categoría");
+        $hojaInicial->setCellValue("B1", "Línea de Investigación");
+        $hojaInicial->setCellValue("C1", "Lugar Publicación");
+        $numCeldaCateg = 1;
+        $numCeldaLineaInves = 1;
+        $numCeldaLugPub = 1;
+        foreach ($listaCategorias as $categoria) {
+            $numCeldaCateg++;
+            $this->armarCeldaExcel($hojaInicial, 'A'.$numCeldaCateg, "texto", $categoria->name);
+        }
+        foreach ($listaLineasInves as $lineaInves) {
+            $numCeldaLineaInves++;
+            $this->armarCeldaExcel($hojaInicial, 'B'.$numCeldaLineaInves, "texto", $lineaInves->name);
+        }
+        foreach ($listaLugaresPublicacion as $lugarPublicacion) {
+            $numCeldaLugPub++;
+            $this->armarCeldaExcel($hojaInicial, 'C'.$numCeldaLugPub, "texto", $lugarPublicacion->nombre);
+        }
+        $hojaInicial->getProtection()->setSheet(true);
         $numCelda = 1;
+        $detalleCargue = $excel->createSheet();
+        $excel->setActiveSheetIndex(1);
         $hoja = $excel->getActiveSheet();
         $hoja->setTitle("Articulos");
         $hoja->setCellValue("A1", "Id Cargue");
@@ -156,18 +178,20 @@ class CargueMasivoController extends Controller
         $hoja->setCellValue("F1", "Línea de Investigación");
         $hoja->setCellValue("G1", "Editorial");
         $hoja->setCellValue("H1", "Fecha de Publicación (YYYY/MM/DD)");
-        $hoja->setCellValue("I1", "Autores (Separados por un pipe |)");
+        $hoja->setCellValue("I1", "Lugar Publicación");
+        $hoja->setCellValue("J1", "Autores (NombresAutor1, ApellidosAutor1 | NombresAutor2, ApellidosAutor2)");
         foreach ($listaDetalleCargue as $detalleCargue) {
             $numCelda++;
             $this->armarCeldaExcel($hoja, 'A'.$numCelda, "texto", $detalleCargue->id);
             $this->armarCeldaExcel($hoja, 'B'.$numCelda, "texto", $detalleCargue->nombreDocumento);
-            $this->armarCeldaExcel($hoja, 'E'.$numCelda, "lista", $textoCategorias);
-            $this->armarCeldaExcel($hoja, 'F'.$numCelda, "lista", $textoLineasInves);
+            $this->armarCeldaExcel($hoja, 'E'.$numCelda, "listaPersonalizada", 'Listas!$A$2:$A$'.$numCeldaCateg);
+            $this->armarCeldaExcel($hoja, 'F'.$numCelda, "listaPersonalizada", 'Listas!$B$2:$B$'.$numCeldaLineaInves);
             $this->armarCeldaExcel($hoja, 'H'.$numCelda, "fecha");
-            $this->armarCeldaExcel($hoja, 'I'.$numCelda, "texto",null,"Los Autores deben ir separados por un |");
+            $this->armarCeldaExcel($hoja, 'I'.$numCelda, "listaPersonalizada",'Listas!$C$2:$C$'.$numCeldaLugPub);
+            $this->armarCeldaExcel($hoja, 'J'.$numCelda, "texto",null,"Los Autores deben ir separados por un | nombres y apellidos separados por coma");
         }
         $hoja->getProtection()->setSheet(true);
-        $hoja->getStyle('C2:I'.$numCelda)->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
+        $hoja->getStyle('C2:J'.$numCelda)->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
         $writer = new Xlsx($excel);
         $nombreDelDocumento = $cargueMasivo->nombre.".xlsx";
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -183,13 +207,16 @@ class CargueMasivoController extends Controller
         switch ($tipo)
         {
             case "lista":
+                case "listaPersonalizada":
                 $objValidation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST );
                 $objValidation->setShowDropDown(true);
                 $objValidation->setError('El valor no esta en la lista.');
                 $objValidation->setPromptTitle('Seleccione');
                 $objValidation->setPrompt('Por favor seleccione el valor de la lista.');
-                if($datos != null)
+                if($datos != null && $tipo == "lista")
                     $objValidation->setFormula1('"'.$datos.'"');
+                else
+                $objValidation->setFormula1($datos);
                 break;
             case "fecha":
                 $objValidation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_DATE );
