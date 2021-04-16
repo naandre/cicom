@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend\Reports;
 use App\Http\Controllers\Backend\Controller;
 use App\Models\Articles\ArticleReport;
 use App\Models\Articles\Article;
+use App\Models\Articles\Ciudad;
+use App\Models\Articles\Pais;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

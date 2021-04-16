@@ -12,6 +12,15 @@
         <link rel="icon" href="{{asset('img/cicom-icon.png')}}" sizes="32x32" />
         <link rel="icon" href="{{asset('img/cicom-icon-big.png')}}" sizes="192x192" />
         <link rel="apple-touch-icon-precomposed" href="{{asset('img/cicom-icon-apel.png')}}" />
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPJVBB83DY"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'G-JPJVBB83DY');
+		</script>
 
         <!-- Styles -->
         <style>

@@ -65,7 +65,7 @@ class ImageController extends Controller
     {
         $this->validate($request,$this->rules);
         $input=$request->all();
-        $input['image']=FilesHelper::store($request,'image',$input['name'],'images');
+        $input['image']=FilesHelper::store($request,'image',$input['name'],'images','image',null,true);
         $image=new Image($input);
         $image->save();
         Session::flash('success', "Se subió la imagen");
