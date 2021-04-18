@@ -140,7 +140,7 @@ class CargueMasivoController extends Controller
         $listaCategorias=current((array)DB::table('categories')->select(DB::raw('concat(id,"|",name) as name'))->where('state','=','1')->get());
         $listaLineasInves=current((array)DB::table('lines_investigation')->select(DB::raw('concat(id,"|",name) as name'))->where('state','=','1')->get());
         $listaLugaresPublicacion=current((array)DB::table('pais')->join('ciudad','pais.id','=','ciudad.idPais')->select(DB::raw('concat(ciudad.id,"|",pais.nombre,",",ciudad.nombre) as nombre'))->get());
-        $listaDetalleCargue=current((array)DB::table('detallecarguemasivo')->select(DB::raw('id,nombreDocumento'))->where('idCargueMasivo','=',$id)->get());
+        $listaDetalleCargue=current((array)DB::table('detalleCargueMasivo')->select(DB::raw('id,nombreDocumento'))->where('idCargueMasivo','=',$id)->get());
         $categoria=Category::all();
         require __DIR__.'/../../../../../vendor/autoload.php';
         $excel = new Spreadsheet();
@@ -198,7 +198,7 @@ class CargueMasivoController extends Controller
         header('Content-Disposition: attachment; filename="'. urlencode($nombreDelDocumento).'"');
         ob_end_clean();
         $writer->save('php://output');
-        unset($this->Model->fields['file']['options']['required']);
+        //unset($this->Model->fields['file']['options']['required']);
         exit();
     }
 
