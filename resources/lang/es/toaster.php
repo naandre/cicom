@@ -80,7 +80,8 @@ return [
     */
     "articles"=>[
         "title"=>'Título',
-        "description"=>'Descripción',
+        "description"=>'Abstract',
+        "keyWords"=>'Palabras Clave',
         "category_id"=>'Categoría',
         "line_id"=>'Línea de Investigación',
         "editorial"=>'Editorial',

@@ -303,7 +303,8 @@
                             $('#publication_country').on('change', function(e){
                                 console.log(e);
                                 var idPais = e.target.value;
-                                var currentUrl = window.location.origin+"/admin/article/findCityFromCountry/"+idPais;
+                                var url = "{{env('APP_URL')}}";
+                                var currentUrl = url+"/admin/article/findCityFromCountry/"+idPais;
                                 $.get(currentUrl,function(data) {
                                     $('#publication_city').empty();
                                     $('#publication_city').append('<option value disable="true" selected="true">Seleccione una opción...</option>');

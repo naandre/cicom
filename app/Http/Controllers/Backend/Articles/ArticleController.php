@@ -19,6 +19,7 @@ class ArticleController extends Controller
     protected $rules=[
         "title"=>['required','string','max:100'],
         "description"=>['required','string','max:500'],
+        "keyWords"=>['required','string','max:200'],
         "category_id"=>['required','numeric'],
         "line_id"=>['required','numeric'],
         "editorial"=>['required','string','max:50'],
@@ -91,6 +92,9 @@ class ArticleController extends Controller
     public function edit($id) {
         $this->Model = Article::find($id);
         unset($this->Model->fields['file']['options']['required']);
+        if(!empty($this->Model->ciudad)){
+            $this->Model->fields['publication_city']['where'] = ['idPais'=>$this->Model->ciudad->pais->id];
+        }
         $this->options = $this->Forms('Editar documento '.$this->Model->title);
         return parent::edit($id);
     }
@@ -139,6 +143,7 @@ class ArticleController extends Controller
         $data=[
             BladeEngine::Translate('title',$article)=>$article->title,
             BladeEngine::Translate('description',$article)=>$article->description,
+            BladeEngine::Translate('keyWords',$article)=>$article->keyWords,
             BladeEngine::Translate('category_id',$article)=>$article->category->name,
             BladeEngine::Translate('line_id',$article)=>$article->line->name,
             BladeEngine::Translate('editorial',$article)=>$article->editorial,

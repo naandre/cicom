@@ -13,11 +13,15 @@ class ArticleReport extends Model
 
     protected $table="ArticleReport";
 
-    protected $fillable=["TITULO","DESCRIPCION","CATEGORIA","LINEA INVESTIGACION","EDITORIAL","FECHA PUBLICACION","AUTORES"];
+    protected $fillable=["TITULO","ABSTRACT","PALABRAS CLAVE","CATEGORIA","LINEA INVESTIGACION","EDITORIAL","FECHA PUBLICACION","AUTORES"];
 
     public $fields=[
         "title"=>['options'=>['required'=>'required']],
         "description"=>[
+            'kind'=>'textarea',
+            'options'=>['required'=>'required']
+        ],
+        "keyWords"=>[
             'kind'=>'textarea',
             'options'=>['required'=>'required']
         ],
@@ -46,7 +50,8 @@ class ArticleReport extends Model
         'articleReport' => [
             'id',
             'TITULO',
-            'DESCRIPCION',
+            'ABSTRACT',
+            'PALABRAS CLAVE',
             'CATEGORIA',
             'LINEA INVESTIGACION',
             'EDITORIAL',

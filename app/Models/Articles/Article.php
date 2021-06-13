@@ -13,11 +13,15 @@ class Article extends Model
 
     protected $table="articles";
 
-    protected $fillable=["title","description","category_id","line_id","editorial","publication_date","file","user_id","publication_city"];
+    protected $fillable=["title","description","category_id","line_id","editorial","publication_date","file","user_id","publication_city","publication_country","keyWords"];
 
     public $fields=[
         "title"=>['options'=>['required'=>'required']],
         "description"=>[
+            'kind'=>'textarea',
+            'options'=>['required'=>'required']
+        ],
+        "keyWords"=>[
             'kind'=>'textarea',
             'options'=>['required'=>'required']
         ],
@@ -59,6 +63,8 @@ class Article extends Model
         'articleTable' => [
             'id',
             'title',
+            'description',
+            'keyWords',
             'publication_date',
             '_links'
         ]

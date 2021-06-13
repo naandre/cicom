@@ -61,23 +61,24 @@ class AutomatizacionCargueController extends Controller
                     $articulo = new Article();
                     $articulo->title = $detalle[2];
                     $articulo->description = $detalle[3];
+                    $articulo->keyWords = $detalle[4];
 
-                    $datoscategoria=$detalle[4];
+                    $datoscategoria=$detalle[5];
                     if(empty($categoria=Category::find(explode("|",$datoscategoria)[0])))
                     continue;
                     $articulo->category_id = $categoria->id;
 
-                    $datosLineaInv = $detalle[5];
+                    $datosLineaInv = $detalle[6];
                     if(empty($lineaInv=LinesInvestigation::find(explode("|",$datosLineaInv)[0])))
                     continue;
                     $articulo->line_id = $lineaInv->id;
 
-                    $articulo->editorial = $detalle[6];
+                    $articulo->editorial = $detalle[7];
 
-                    $fechaPublicacion = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($detalle[7])->format('Y-m-d');
+                    $fechaPublicacion = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($detalle[8])->format('Y-m-d');
                     $articulo->publication_date = $fechaPublicacion;
 
-                    $datosLugarPub = $detalle[8];
+                    $datosLugarPub = $detalle[9];
                     if(empty($ciudad=Ciudad::find(explode("|",$datosLugarPub)[0])))
                     continue;
                     $articulo->publication_city = $ciudad->id;
@@ -100,7 +101,7 @@ class AutomatizacionCargueController extends Controller
                         rename($rutaNuevaArticulo,$rutaArticuloCargue);
                         continue;
                     }
-                    $listaDatosAutores = explode("|",$detalle[9]);
+                    $listaDatosAutores = explode("|",$detalle[10]);
                     foreach($listaDatosAutores as $datoAutor){
                         $nombreAutor = explode(",",$datoAutor);
 
